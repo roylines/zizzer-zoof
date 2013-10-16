@@ -1,4 +1,3 @@
-zizzer-zoof
-===========
+# zizzer-zoof
 
-service to get rid of things you don't want
+which nobody wants because nobody needs
