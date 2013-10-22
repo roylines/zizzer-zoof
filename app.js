@@ -35,11 +35,11 @@ function route(app) {
         return cb();
       },
       function(cb) {
-        return gm(image.path).noProfile().write(zzdb + '/all/' + image.hash + '.jpg', cb);
-      }//,
-      //function(cb) {
-      //  return fs.unlink(image.path, cb);
-      //}
+        return gm(image.path).resize(225, 300).noProfile().write(zzdb + '/all/' + image.hash + '.jpg', cb);
+      },
+      function(a, b, c, cb) {
+        return fs.unlink(image.path, cb);
+      }
     ], function(e) {
       return status200or500(res, e);
     });
