@@ -6,6 +6,11 @@
     "url": "https://roylines.co.uk"
   },
   "dependencies": {
+    "async": "*",
+    "ejs": "*",
+    "express": "*",
+    "formidable": "*",
+    "gm": "*",
     "mongoose": "*"
   },
   "devDependencies": {
