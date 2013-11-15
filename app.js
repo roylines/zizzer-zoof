@@ -52,15 +52,20 @@ function start(app) {
       console.error('failed to connect to database', e);
       process.exit(1);
     }
-
+    
     route(app);
 
     app.listen(3000, function() {
-      console.log('listening...');
+      console.log('listening on 3000');
     });
   });
 }
 
 var app = express();
+app.use(express.static(__dirname + '/static'));
+app.locals({
+  title: 'Zizzer-Zoof',
+  tagline: 'which nobody wants because nobody needs'
+});
 
 start(app);

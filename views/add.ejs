@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-dark.min.css">   
+  </head>
+  <body>
+    <h1>Media</h1>
+    <form method="post" enctype="multipart/form-data">
+      <input class="input-hidden" id="get-image-hidden" type="file" name="image" accept="image/*" capture="camera" />
+      <button id="get-image" class="topcoat-button">Select image...</button>
+      <button class="topcoat-button">Upload</button>
+    </form>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+    
+  $(function() {
+    $('#get-image-hidden').hide();
+    $('#get-image').click(function() {
+      $('#get-image-hidden').click();
+      return false;
+    });
+  });
+
+  </script>
+  </body>
+</html>

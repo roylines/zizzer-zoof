@@ -1,24 +1,54 @@
-<html>
-  <body>
-    <h1>Media</h1>
-    <form method="post" enctype="multipart/form-data">
-      <p>Image: <input type="file" name="image" /></p>
-      <p><input type="submit" value="Upload" /></p>
-    </form>
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title><%= title %>: <%= tagline %></title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<div class="row">
+  <div class="large-12 columns">
+    <nav class="top-bar">
+      <ul class="title-area">
+        <li class="name">
+        <h1>
+          <a href="#"><%= title %> <small><%= tagline %></small>
+          </a>
+        </h1>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
-    <script>
-      /*
-      function gotMedia() {
-        console.log('OK');
-      }
+<div class="row">
+  <div class="large-12 columns">
+    <div class="section-container auto" data-section>
+      <section class="active">
+        <p class="title" data-section-title><a href="#panel1">Finding</a></p>
+        <div class="content" data-section-content>
+          <ul class="small-block-grid-2 large-block-grid-4">
+            <li><img src="../img/demos/demo1.png"></li>
+            <li><img src="../img/demos/demo2.png"></li>
+            <li><img src="../img/demos/demo3.png"></li>
+            <li><img src="../img/demos/demo4.png"></li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <p class="title" data-section-title><a href="#panel2">Selling</a></p>
+        <div class="content" data-section-content>
+          <p>Content of section 2.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
 
-      function noMedia() {
-        console.log('NOTOK');
-      }
+<script src="js/thirdparties-min.js"></script>
 
-      navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-      navigator.getMedia({ video: true }, gotMedia, noMedia);
-      */
-    </script>
-  </body>
+<script>$(document).foundation();</script>
+</body>
 </html>
