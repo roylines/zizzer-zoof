@@ -25,8 +25,8 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <div class="section-container auto" data-section>
-      <section class="active">
+    <div class="section-container tabs" data-section="tabs">
+      <section>
         <p class="title" data-section-title><a href="#panel1">Finding</a></p>
         <div class="content" data-section-content>
           <ul class="small-block-grid-2 large-block-grid-4">
@@ -37,18 +37,26 @@
           </ul>
         </div>
       </section>
-      <section>
+      <section class="active">
         <p class="title" data-section-title><a href="#panel2">Selling</a></p>
-        <div class="content" data-section-content>
-          <p>Content of section 2.</p>
+        <div class="content" data-section-content>         
+          <div> 
+            <button id="sell-item" class="button"><i class="foundicon-plus"></i> Sell an item</button>
+          </div>
+          <div id="sell-reveal" class="hidden">
+            <button id="get-image" class="button">Select image...</button>
+            <button class="button">Upload</button>
+          </div>
         </div>
       </section>
     </div>
   </div>
 </div>
 
+<form method="post" enctype="multipart/form-data">
+  <input id="get-image-hidden" class="hidden" type="file" name="image" accept="image/*" capture="camera" />
+</form>
 <script src="js/thirdparties-min.js"></script>
-
-<script>$(document).foundation();</script>
+<script src="js/zz.js"></script>
 </body>
 </html>
