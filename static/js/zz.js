@@ -23,44 +23,26 @@ function shrink() {
 */
 
 function sell() {
-  $('#sell-reveal').show();
-  $('#sell-item').hide();
-  return false;
-}
-
-function getImage() {
   $('#get-image-hidden').click();
   return false;
 }
 
+function readImage(e) {
+   var thumbnail = $('#image-thumb');
+    $('#sell-reveal').show();
+    $('#sell-item').hide();
+    thumbnail.height((400 * thumbnail.width()) / 300);
+    thumbnail.attr('src', e.target.result);
+}
+
 function gotImage(e) {
-  var self = this;
-
-  var reader = new FileReader(); // init a file reader
-  var file = e.target.files[0];
-
-  reader.onloadend = function() {
-
-    // shrink image
-    var image = document.createElement('img');
-    image.src = reader.result;
-
-    //var canvas = document.createElement('canvas');
-    $('#image-canvas').show();
-    var canvas = $('#image-canvas')[0];
-    var ctx = canvas.getContext('2d');
-    ctx.drawImage(image, 0, 0, 300, 300);
-    canvas.show();
-    var shrinked = canvas.toDataURL('image/jpeg');
-    console.log(shrinked);
-  };
-
-  reader.readAsDataURL(file); // convert file to base64
+  var reader = new FileReader();
+  reader.onloadend = readImage; 
+  reader.readAsDataURL(e.target.files[0]);
 }
 
 $(function() {
   $(document).foundation();
   $('#get-image-hidden').on('change', gotImage);
   $('#sell-item').click(sell)
-  $('#get-image').click(getImage);
 });

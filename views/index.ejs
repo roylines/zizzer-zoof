@@ -40,13 +40,18 @@
       <section class="active">
         <p class="title" data-section-title><a href="#panel2">Selling</a></p>
         <div class="content" data-section-content>         
-          <div> 
-            <button id="sell-item" class="button"><i class="foundicon-plus"></i> Sell an item</button>
+          <div class="row">
+            <div class="columns large-3"> 
+              <button id="sell-item" class="button"><i class="foundicon-plus"></i> Sell an item</button>
+            </div>
           </div>
-          <div id="sell-reveal" class="hidden">
-            <canvas id="image-canvas" class="th"></canvas>
-            <br/>
-            <button id="get-image" class="button"><i class="foundicon-photo"></i> Add photo</button>
+          <div id="sell-reveal" class="hidden row">
+            <div class="columns large-offset-0 large-3 small-8 small-offset-2">
+              <img id="image-thumb" class="th"></img>
+            </div>
+            <div class="columns large-6 small-12">
+              hello
+            </div>
             <button class="button hidden">Done</button>
           </div>
         </div>
@@ -55,6 +60,7 @@
   </div>
 </div>
 
+<canvas id="image-canvas" class="hidden"></canvas>
 <form method="post" enctype="multipart/form-data">
   <input id="get-image-hidden" class="hidden" type="file" name="image" accept="image/*" capture="camera" />
 </form>
