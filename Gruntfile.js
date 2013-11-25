@@ -11,6 +11,13 @@ module.exports = function(grunt) {
         stripBanners: true,
         banner: '/*zizzer-zoof: Copyright (C) 2012-' + new Date().getFullYear() + ', Roy Lines, http://roylines.co.uk*/\n'
       },
+      zz: {
+        src: [
+          'angular/head/*.js', 
+          'angular/controllers/*.js', 
+          'angular/tail/*.js'], 
+        dest: 'static/js/zz.js'
+      },
       thirdparty: {
         options: {
           stripBanners: false,
@@ -20,7 +27,8 @@ module.exports = function(grunt) {
           thirdparty + '/foundation/js/vendor/jquery.js', 
           thirdparty + '/foundation/js/vendor/*.js', 
           thirdparty + '/foundation/js/foundation/foundation.js', 
-          thirdparty + '/foundation/js/foundation/foundation.*.js'],
+          thirdparty + '/foundation/js/foundation/foundation.*.js',
+          thirdparty + '/angular/*.js'],
         dest: 'static/js/thirdparties.js'
       },
     },
@@ -66,6 +74,10 @@ module.exports = function(grunt) {
     },
 
     watch: {
+      angular: {
+        files: ['angular/*/*.js'],
+        tasks: ['angular']
+      },
       sass: {
         files: ['sass/*.scss'],
         tasks: ['sass']
@@ -79,8 +91,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // aliases
+  grunt.registerTask('angular', ['concat:zz', 'uglify:zz']);
   grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
   grunt.registerTask('default', ['sass', 'uglify:zz']);
 };
