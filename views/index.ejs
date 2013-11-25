@@ -25,37 +25,46 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <div class="section-container tabs" data-section="tabs">
-      <section>
-        <p class="title" data-section-title><a href="#panel1">Finding</a></p>
-        <div class="content" data-section-content>
-          <ul class="small-block-grid-2 large-block-grid-4">
-            <li><img src="../img/demos/demo1.png"></li>
-            <li><img src="../img/demos/demo2.png"></li>
-            <li><img src="../img/demos/demo3.png"></li>
-            <li><img src="../img/demos/demo4.png"></li>
-          </ul>
-        </div>
-      </section>
-      <section class="active">
-        <p class="title" data-section-title><a href="#panel2">Selling</a></p>
-        <div class="content" data-section-content>         
-          <div class="row">
-            <div class="columns large-3"> 
-              <button id="sell-item" class="button"><i class="foundicon-plus"></i> Sell an item</button>
-            </div>
-          </div>
-          <div id="sell-reveal" class="hidden row">
-            <div class="columns large-offset-0 large-3 small-8 small-offset-2">
-              <img id="image-thumb" class="th"></img>
-            </div>
-            <div class="columns large-6 small-12">
-              hello
-            </div>
-            <button class="button hidden">Done</button>
+    <dl class="tabs" data-tab>
+      <dd class="active"><a href="#panel2-1">Finding</a></dd>      
+      <dd><a href="#panel2-2">Selling</a></dd> 
+    </dl> 
+    <div class="tabs-content"> 
+      <div class="content active" id="panel2-1"> 
+        <ul class="small-block-grid-2 large-block-grid-4">
+          <li><img src="../img/demos/demo1.png"></li>
+          <li><img src="../img/demos/demo2.png"></li>
+          <li><img src="../img/demos/demo3.png"></li>
+          <li><img src="../img/demos/demo4.png"></li>
+        </ul>
+      </div> 
+      <div class="content" id="panel2-2"> 
+        <div class="row">
+          <div class="columns large-4 large-offset-4 small-8 small-offset-2"> 
+            <button id="sell-item" class="button"><i class="foundicon-plus"></i> Sell an item</button>
           </div>
         </div>
-      </section>
+        <div id="sell-reveal" class="hidden row">
+          <div class="columns large-offset-0 large-3 small-8 small-offset-2">
+            <img id="image-thumb" class="th"></img>
+          </div>
+          <div class="columns large-9 small-12">
+            <div class="row">
+              <div class="columns large-2">
+                <label>Price</label>
+                <input autofocus type="number" placeholder="How much do you want for it. Put 0.00 if you like"></input>           
+              </div>
+            </div>
+            <div class="row">
+              <div class="columns large-12">
+                <label>Description</label>
+                <textarea maxlength="140" required spellcheck placeholder="Add a simple description of the item you wish to sell. You can use hashtags (#) if you like. You have 120 characters."></textarea>            
+                <button class="button">Sell it!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
     </div>
   </div>
 </div>
@@ -64,7 +73,7 @@
 <form method="post" enctype="multipart/form-data">
   <input id="get-image-hidden" class="hidden" type="file" name="image" accept="image/*" capture="camera" />
 </form>
-<script src="js/thirdparties-min.js"></script>
+<script src="js/thirdparties.min.js"></script>
 <script src="js/zz.js"></script>
 </body>
 </html>

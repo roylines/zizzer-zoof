@@ -43,6 +43,6 @@ function gotImage(e) {
 
 $(function() {
   $(document).foundation();
-  $('#get-image-hidden').on('change', gotImage);
-  $('#sell-item').click(sell)
+  //$('#get-image-hidden').on('change', gotImage);
+  //$('#sell-item').click(sell)
 });

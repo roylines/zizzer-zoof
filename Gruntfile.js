@@ -1,15 +1,15 @@
 module.exports = function(grunt) {
 
-  var thirdparty = '../../../thirdparty/';
+  var thirdparty = '../../thirdparty/';
 
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
-
+    
     concat: {
       options: {
         stripBanners: true,
-        banner: '/*zizzer-zoof Copyright (C) 2012-' + new Date().getFullYear() + ', Roy Lines, http://roylines.co.uk*/\n'
+        banner: '/*zizzer-zoof: Copyright (C) 2012-' + new Date().getFullYear() + ', Roy Lines, http://roylines.co.uk*/\n'
       },
       thirdparty: {
         options: {
@@ -17,35 +17,36 @@ module.exports = function(grunt) {
           banner: '/* third-party includes */\n\n'
         },
         src: [
-          thirdparty + 'foundation/js/vendor/custom.modernizr.js',
-          thirdparty + 'foundation/js/vendor/zepto.js',
-          thirdparty + 'foundation/js/foundation/foundation.js',
-          thirdparty + 'foundation/js/foundation/foundation.*.js'
-        ],
+          thirdparty + '/foundation/js/vendor/jquery.js', 
+          thirdparty + '/foundation/js/vendor/*.js', 
+          thirdparty + '/foundation/js/foundation/foundation.js', 
+          thirdparty + '/foundation/js/foundation/foundation.*.js'],
         dest: 'static/js/thirdparties.js'
       },
     },
 
     uglify: {
       options: {
-        banner: '/*zizzer-zoof: Copyright (C) 2012-' + new Date().getFullYear() + ', Roy Lines, http://roylines.co.uk*/\n'
+        banner: '/*zizzer-zoof: Copyright (C) 2012-' + new Date().getFullYear() + ', Roy Lines, http://roylines.co.uk*/\n',
+        preserveComments: 'some'
+      },
+      zz: {
+        files: {
+          'static/js/zz.min.js': ['static/js/zz.js']
+        }
       },
       thirdparty: {
-        options: {
-          banner: '/* third-party includes */\n\n',
-          preserveComments: 'all'
-        },
         files: {
-          'static/js/thirdparties-min.js': ['static/js/thirdparties.js']
+          'static/js/thirdparties.min.js': ['static/js/thirdparties.js']
         }
       }
     },
 
     copy: {
-      foundationicons: {
+      "foundation-icons": {
         files: [{
             expand: true,
-            src: ['../../../thirdparty/foundation-icons/foundation_icons_general/fonts/*'],
+            src: [thirdparty + '/foundation-icons/foundation_icons_general/fonts/*'],
             dest: 'static/fonts/',
             flatten: true,
             filter: 'isFile'
@@ -53,7 +54,6 @@ module.exports = function(grunt) {
         ]
       }
     },
-
     sass: {
       options: {
         style: 'compressed'
@@ -81,5 +81,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
 
   // aliases
-  grunt.registerTask('thirdparty', ['copy', 'sass', 'concat', 'uglify']);
+  grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
+  grunt.registerTask('default', ['sass', 'uglify:zz']);
 };
