@@ -27,8 +27,9 @@ module.exports = function(grunt) {
           thirdparty + '/foundation/js/vendor/jquery.js', 
           thirdparty + '/foundation/js/vendor/*.js', 
           thirdparty + '/foundation/js/foundation/foundation.js', 
-          thirdparty + '/foundation/js/foundation/foundation.*.js',
-          thirdparty + '/angular/*.js'],
+ //         thirdparty + '/foundation/js/foundation/foundation.*.js',
+          thirdparty + '/angular/angular-1.2.2/angular.js',
+          thirdparty + '/angular/angular-1.2.2/angular-route.js'],
         dest: 'static/js/thirdparties.js'
       },
     },

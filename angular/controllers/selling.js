@@ -1,5 +1,5 @@
-zz.controller('Selling', ['$scope',
+app.controller('selling', ['$scope',
   function($scope) {
-    $scope.test = "TEST";
+    $scope.contentClass = 'content active';
   }
 ]);

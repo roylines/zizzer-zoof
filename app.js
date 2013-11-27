@@ -17,6 +17,10 @@ function route(app) {
   app.get('/', function(req, res) {
     res.render('index.ejs');
   });
+
+  app.get('/partial/:page', function(req, res) {
+    res.render('partial/' + req.params.page + ".ejs");
+  });
   
   app.post('/', function(req, res, next) {
 
