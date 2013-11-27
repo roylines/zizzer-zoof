@@ -23,6 +23,6 @@ schema.methods.findNearby = function(where, distance, done) {
       $maxDistance: distance
     }
   }, done);
-}
+};
 
 module.exports = mongoose.model('Item', schema);

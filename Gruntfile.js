@@ -11,7 +11,7 @@ module.exports = function(grunt) {
         stripBanners: true,
         banner: '/*zizzer-zoof: Copyright (C) 2012-' + new Date().getFullYear() + ', Roy Lines, http://roylines.co.uk*/\n'
       },
-      zz: {
+      angular: {
         src: [
           'angular/head/*.js', 
           'angular/controllers/*.js', 
@@ -33,13 +33,18 @@ module.exports = function(grunt) {
         dest: 'static/js/thirdparties.js'
       },
     },
+    
+    jshint: {
+      server: ['app.js', 'models/*.js'],
+      angular: ['angular/**/*.js'],
+    },
 
     uglify: {
       options: {
         banner: '/*zizzer-zoof: Copyright (C) 2012-' + new Date().getFullYear() + ', Roy Lines, http://roylines.co.uk*/\n',
         preserveComments: 'some'
       },
-      zz: {
+      angular: {
         files: {
           'static/js/zz.min.js': ['static/js/zz.js']
         }
@@ -90,12 +95,14 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // aliases
-  grunt.registerTask('angular', ['concat:zz', 'uglify:zz']);
+  grunt.registerTask('angular', ['jshint:angular', 'concat:angular', 'uglify:angular']);
+  grunt.registerTask('server', ['jshint:server']);
   grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
-  grunt.registerTask('default', ['sass', 'uglify:zz']);
+  grunt.registerTask('default', ['sass', 'angular', 'server']);
 };
