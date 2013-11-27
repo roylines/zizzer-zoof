@@ -84,6 +84,10 @@ module.exports = function(grunt) {
         files: ['angular/*/*.js'],
         tasks: ['angular']
       },
+      server: {
+        files: ['app.js', 'models/*.js'],
+        tasks: ['server']
+      },
       sass: {
         files: ['sass/*.scss'],
         tasks: ['sass']
@@ -101,7 +105,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // aliases
-  grunt.registerTask('angular', ['jshint:angular', 'concat:angular', 'uglify:angular']);
+  grunt.registerTask('angular', ['concat:angular', 'uglify:angular', 'jshint:angular']);
   grunt.registerTask('server', ['jshint:server']);
   grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
   grunt.registerTask('default', ['sass', 'angular', 'server']);
