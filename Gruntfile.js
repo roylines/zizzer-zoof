@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
-    
+
     concat: {
       options: {
         stripBanners: true,
@@ -13,9 +13,11 @@ module.exports = function(grunt) {
       },
       angular: {
         src: [
-          'angular/head/*.js', 
-          'angular/controllers/*.js', 
-          'angular/tail/*.js'], 
+            'angular/head/*.js',
+            'angular/directives/*.js',
+            'angular/controllers/*.js',
+            'angular/tail/*.js'
+        ],
         dest: 'static/js/zz.js'
       },
       thirdparty: {
@@ -24,18 +26,20 @@ module.exports = function(grunt) {
           banner: '/* third-party includes */\n\n'
         },
         src: [
-          thirdparty + '/foundation/js/vendor/jquery.js', 
-          thirdparty + '/foundation/js/vendor/*.js', 
-          thirdparty + '/foundation/js/foundation/foundation.js', 
- //         thirdparty + '/foundation/js/foundation/foundation.*.js',
+          thirdparty + '/foundation/js/vendor/jquery.js',
+          thirdparty + '/foundation/js/vendor/*.js',
+          thirdparty + '/foundation/js/foundation/foundation.js',
+          //         thirdparty + '/foundation/js/foundation/foundation.*.js',
           thirdparty + '/angular/angular-1.2.2/angular.js',
-          thirdparty + '/angular/angular-1.2.2/angular-route.js'],
+          thirdparty + '/angular/angular-1.2.2/angular-route.js'
+        ],
         dest: 'static/js/thirdparties.js'
       },
     },
-    
+
     jshint: {
       server: ['app.js', 'models/*.js'],
+      grunt: ['Gruntfile.js'],
       angular: ['angular/**/*.js'],
     },
 
@@ -68,6 +72,7 @@ module.exports = function(grunt) {
         ]
       }
     },
+
     sass: {
       options: {
         style: 'compressed'
@@ -87,6 +92,10 @@ module.exports = function(grunt) {
       server: {
         files: ['app.js', 'models/*.js'],
         tasks: ['server']
+      },
+      grunt: {
+        files: ['Gruntfile.js'],
+        tasks: ['jshint:grunt']
       },
       sass: {
         files: ['sass/*.scss'],

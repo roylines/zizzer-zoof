@@ -2,3 +2,14 @@
   <dd><a href="finding">Finding</a></dd>
   <dd class="active"><a href="selling">Selling</a></dd>
 </dl>
+
+<div class="row">
+  <div file-input on-change="readFile"></div>
+  <button class="button round" ng-show="state=='idle' || state=='choose' || state =='choosing'" ng-click="choose()"><i class="foundicon-plus"></i> Sell an item</button>
+  <fieldset ng-show="state == 'adding'">
+    <legend>Sell an Item</legend>
+    <img class="th preview" ng-src="{{ newImage }}" />
+    <label>Description</label>
+    <input type="text" placeholder="Add some text to describe your item here.">
+  </fieldset>
+</div>
