@@ -1,15 +1,41 @@
-<dl class="tabs" data-tab>
-  <dd><a href="finding">Finding</a></dd>
-  <dd class="active"><a href="selling">Selling</a></dd>
-</dl>
+<div class="row">
+  <div class="small-12 columns">
+    <dl class="tabs" data-tab>
+      <dd><a href="finding">Finding</a></dd>
+      <dd class="active"><a href="selling">Selling</a></dd>
+    </dl>
+  </div>
+</div>
 
 <div class="row">
-  <div file-input on-change="readFile"></div>
-  <button class="button round" ng-show="state=='idle' || state=='choose' || state =='choosing'" ng-click="choose()"><i class="foundicon-plus"></i> Sell an item</button>
-  <fieldset ng-show="state == 'adding'">
-    <legend>Sell an Item</legend>
-    <img class="th preview" ng-src="{{ newImage }}" />
-    <label>Description</label>
-    <input type="text" placeholder="Add some text to describe your item here.">
-  </fieldset>
+  <div class="small-12 columns">    
+    <button class="button success" ng-show="state=='idle' || state=='choose' || state =='choosing'" ng-click="choose()"><i class="foundicon-plus"></i> Sell an item</button>
+    <fieldset ng-show="state == 'chosen'">
+      <legend>Sell an Item</legend>
+      <img class="th preview" ng-src="{{ newImage }}" />
+      <label>Description</label>
+      <input type="text" placeholder="Add some text to describe your item here.">
+      <button class="button success" ng-click="sell"><i class="foundicon-checkmark"></i> Sell</button>
+      <button class="button alert" ng-click="cancel"><i class="foundicon-remove"></i> Cancel</button>
+    </fieldset>
+  </div>
+  <div class="small-12 columns">
+    <h2>For Sale</h2>
+    <table width="100%">
+      <thead>
+        <tr>
+          <th width="25%"></th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="item in forSale">
+        <td><img ng-src="{{ item.img }}"></img></td>
+        <td>{{ item.desc  }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<div file-input on-change="chosen"></div>

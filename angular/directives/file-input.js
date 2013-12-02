@@ -5,9 +5,6 @@ app.directive('fileInput', ['$parse',
       template: "<input class='hidden' type='file' name='image' accept='image/*' capture='camera' />",
       replace: true,
       link: function(scope, element, attrs) {
-        var updateModel = function() {
-            scope[attrs.onChange](element[0].files[0]);
-        };
 
         scope.$watch('state', function(s) {
           if (scope.state == 'choose') {
@@ -16,7 +13,9 @@ app.directive('fileInput', ['$parse',
           }
         });
 
-        element.bind('change', updateModel);
+        element.bind('change', function(evt) {
+          scope[attrs.onChange](evt.target.files[0]);
+        });
       }
     };
   }

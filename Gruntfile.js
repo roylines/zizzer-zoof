@@ -14,6 +14,7 @@ module.exports = function(grunt) {
       angular: {
         src: [
             'angular/head/*.js',
+            'angular/services/*.js',
             'angular/directives/*.js',
             'angular/controllers/*.js',
             'angular/tail/*.js'
@@ -31,7 +32,8 @@ module.exports = function(grunt) {
           thirdparty + '/foundation/js/foundation/foundation.js',
           //         thirdparty + '/foundation/js/foundation/foundation.*.js',
           thirdparty + '/angular/angular-1.2.2/angular.js',
-          thirdparty + '/angular/angular-1.2.2/angular-route.js'
+          thirdparty + '/angular/angular-1.2.2/angular-route.js',
+          thirdparty + '/angular/angular-1.2.2/angular-resource.js'
         ],
         dest: 'static/js/thirdparties.js'
       },

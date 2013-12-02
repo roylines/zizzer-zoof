@@ -1,11 +1,6 @@
 /*zizzer-zoof: Copyright (C) 2012-2013, Roy Lines, http://roylines.co.uk*/
-var app = angular.module('app', ['ngRoute']);
-
-/*
-app.run(function($rootScope) {
-  $(document).foundation();
-});
-*/
+var app = angular.module('app', ['ngRoute', 'services']);
+var services = angular.module('services', ['ngResource']);
 
 app.config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
@@ -24,6 +19,12 @@ app.config(['$routeProvider', '$locationProvider',
   }
 ]);
 
+services.factory('Items', ['$resource',
+  function($resource) {
+    return $resource('/api/1/items/:id');
+  }
+]);
+
 app.directive('fileInput', ['$parse',
   function($parse) {
     return {
@@ -31,9 +32,6 @@ app.directive('fileInput', ['$parse',
       template: "<input class='hidden' type='file' name='image' accept='image/*' capture='camera' />",
       replace: true,
       link: function(scope, element, attrs) {
-        var updateModel = function() {
-            scope[attrs.onChange](element[0].files[0]);
-        };
 
         scope.$watch('state', function(s) {
           if (scope.state == 'choose') {
@@ -42,29 +40,33 @@ app.directive('fileInput', ['$parse',
           }
         });
 
-        element.bind('change', updateModel);
+        element.bind('change', function(evt) {
+          scope[attrs.onChange](evt.target.files[0]);
+        });
       }
     };
   }
 ]);
 
-app.controller('selling', ['$scope',
-  function($scope) {
+app.controller('selling', ['$scope', 'Items',
+  function($scope, Items) {
     $scope.state = 'idle';
 
     $scope.choose = function() {
       $scope.state = 'choose';
     };
 
-    $scope.readFile = function(file) {
+    $scope.chosen = function(file) {
       var reader = new FileReader();
       reader.onloadend = function() {
         $scope.$apply(function() {
           $scope.newImage = reader.result;
-          $scope.state = 'adding';
+          $scope.state = 'chosen';
         });
       };
       reader.readAsDataURL(file);
     };
+
+    $scope.forSale = Items.query({ status: 'selling' });
   }
 ]);
