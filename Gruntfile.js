@@ -6,6 +6,12 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
+    exec: {
+      restart: {
+        command: 'naught deploy'
+      }
+    },
+
     concat: {
       options: {
         stripBanners: true,
@@ -92,7 +98,7 @@ module.exports = function(grunt) {
         tasks: ['angular']
       },
       server: {
-        files: ['app.js', 'models/*.js'],
+        files: ['app.js', 'models/*.js', 'lib/*.js'],
         tasks: ['server']
       },
       grunt: {
@@ -108,16 +114,17 @@ module.exports = function(grunt) {
 
   // plugins
 
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-exec');
 
   // aliases
   grunt.registerTask('angular', ['concat:angular', 'uglify:angular', 'jshint:angular']);
-  grunt.registerTask('server', ['jshint:server']);
+  grunt.registerTask('server', ['jshint:server', 'exec:restart']);
   grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
   grunt.registerTask('default', ['sass', 'angular', 'server']);
 };

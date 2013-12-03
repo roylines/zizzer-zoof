@@ -1,13 +1,31 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose"),
+    User = require('./user');
 
 // http://stackoverflow.com/questions/9230932/file-structure-of-mongoose-nodejs-project
+
 var schema = new mongoose.Schema({
-  title: {
+  desc: {
     type: String
   },
+  imageId: {
+    type: String
+  },
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    index: true
+  },
+  price: {
+    type: Number,
+    max: 1000,
+    message: "Price must be less than £1000"
+  },
+  created: {
+    type: Date
+  },
   geo: {
-    type: [Number],
-    index: '2dsphere'
+    type: [Number], // longitude, latitude
+    index: "2dsphere"
   }
 });
 

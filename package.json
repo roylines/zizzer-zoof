@@ -11,22 +11,29 @@
     "express": "*",
     "formidable": "*",
     "gm": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "underscore": "*"
   },
   "devDependencies": {
     "grunt": "*",
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "*",
+    "grunt-contrib-copy": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*"
+    "grunt-contrib-watch": "*",
+    "grunt-exec": "*"
   },
   "engines": {
     "node": "0.10.x",
     "npm": "1.3.x"
   },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/roylines/zizzer-zoof.git"
+  },
   "scripts": {
-    "start": "node app.js"
+    "start": "naught start app.js"
   }
 }
