@@ -8,7 +8,7 @@ var port = 8080;
 var app = null;
 
 function send(status, done) {
-  if(process.send) {
+  if (process.send) {
     process.send(status);
   }
   return done();
@@ -18,6 +18,10 @@ function start() {
   app = express();
   app.use(express.static(__dirname + '/static'));
   app.use(express.static(__dirname + '/db/all'));
+  app.use(express.cookieParser());
+  app.use(express.session({
+    secret: process.env.EXPRESS_SESSION_SECRET
+  }));
   app.use(express.logger());
   app.use(express.json());
   app.use(utils.middleware);

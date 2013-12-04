@@ -1,16 +1,42 @@
-app.config(['$routeProvider', '$locationProvider',
-  function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', '$httpProvider',
+  function($routeProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true);
-    var partial = function(name) {
-      return {
-        templateUrl: '/partial/' + name,
-        controller: name
+
+    var routes = ['login', 'selling'];
+    for (var i = 0; i < routes.length; ++i) {
+      var template = {
+        templateUrl: '/partial/' + routes[i],
+        controller: routes[i]
       };
-    };
-    $routeProvider.when('/selling', partial('selling'));
-    //$routeProvider.when('/finding', partial('finding'));
+      $routeProvider.when('/' + routes[i], template);
+    }
+
     $routeProvider.otherwise({
-      redirectTo: '/selling'
+      redirectTo: '/login'
     });
+
+    var interceptor = ['$q',
+      function($q) {
+        function success(response) {
+          return response;
+        }
+
+        function error(response) {
+          var status = response.status;
+
+          if (status == 401) {
+            console.log('401 HERE!');
+            window.location = "/login";
+            return;
+          }
+        }
+
+        return function(promise) {
+          return promise.then(success, error);
+        }
+      }
+    ];
+
+    $httpProvider.responseInterceptors.push(interceptor);
   }
 ]);
