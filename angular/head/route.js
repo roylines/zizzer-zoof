@@ -29,11 +29,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             window.location = "/login";
             return;
           }
+
+          return $q.reject(response);
         }
 
         return function(promise) {
           return promise.then(success, error);
-        }
+        };
       }
     ];
 

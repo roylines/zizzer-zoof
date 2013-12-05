@@ -1,1 +1,15 @@
-<h1>Login</h1>
+<div class="row">
+  <div class="small-12 large-offset-3 large-6 columns">
+    <form name="details">
+      <fieldset ng-disabled="busy">
+        <legend>Login</legend>
+        <input ng-model="username" ng-change="error = null" type="text" placeholder="Username" autofocus required/>
+        
+        <input ng-model="password" tng-change="error = null" type="password" placeholder="Password" required/>
+        <small ng-show="error" ng-bind="error" class="error"></small>
+      
+        <button ng-click="login(username, password)" ng-disabled="!details.$valid"i>Login</button>
+      </fieldset>
+    </form>
+  </div>
+</div>

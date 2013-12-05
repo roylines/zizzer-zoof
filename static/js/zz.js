@@ -33,15 +33,23 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             window.location = "/login";
             return;
           }
+
+          return $q.reject(response);
         }
 
         return function(promise) {
           return promise.then(success, error);
-        }
+        };
       }
     ];
 
     $httpProvider.responseInterceptors.push(interceptor);
+  }
+]);
+
+services.factory('Login', ['$resource',
+  function($resource) {
+    return $resource('/api/1/login');
   }
 ]);
 
@@ -74,8 +82,27 @@ app.directive('fileInput', ['$parse',
   }
 ]);
 
-app.controller('login', ['$scope',
-  function($scope) {
+app.controller('login', ['$scope', '$location', 'Login',
+  function($scope, $location, Login) {
+    $scope.busy = false;
+
+    var ok = function() {
+      $location.path('/selling');
+    };
+
+    var fail = function(res) {
+      $scope.error = res.data;
+      $scope.busy = false;
+    };
+
+    $scope.login = function(username, password) {
+      $scope.busy = true;
+      var details = {
+        username: username,
+        password: password
+      };
+      Login.save({}, details, ok, fail);
+    };
   }
 ]);
 
