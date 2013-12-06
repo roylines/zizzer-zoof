@@ -29,7 +29,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
           var status = response.status;
 
           if (status == 401) {
-            console.log('401 HERE!');
             window.location = "/login";
             return;
           }
