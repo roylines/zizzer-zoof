@@ -53,6 +53,12 @@ services.factory('Login', ['$resource',
   }
 ]);
 
+services.factory('Logout', ['$resource',
+  function($resource) {
+    return $resource('/api/1/logout');
+  }
+]);
+
 services.factory('Items', ['$resource',
   function($resource) {
     return $resource('/api/1/items/:id');
@@ -126,5 +132,14 @@ app.controller('selling', ['$scope', 'Items',
     };
 
     $scope.forSale = Items.query({ status: 'selling' });
+  }
+]);
+
+app.controller('topbar', ['$scope', '$location', 'Logout',
+  function($scope, $location, Logout) {
+    $scope.logout = function() {
+      Logout.query();
+      $location.path('/login');
+    };  
   }
 ]);
