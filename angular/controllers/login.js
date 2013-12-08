@@ -11,10 +11,10 @@ app.controller('login', ['$scope', '$location', 'Login',
       $scope.busy = false;
     };
 
-    $scope.login = function(username, password) {
+    $scope.login = function(email, password) {
       $scope.busy = true;
       var details = {
-        username: username,
+        email: email,
         password: password
       };
       Login.save({}, details, ok, fail);
