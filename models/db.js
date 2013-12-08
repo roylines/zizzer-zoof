@@ -12,6 +12,7 @@ db.connect = function() {
   db.on('error', function(e) {
     return done(e);
   });
+ 
   db.once('open', function() {
     return done();
   });
