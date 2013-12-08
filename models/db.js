@@ -1,22 +1,12 @@
 var mongoose = require('mongoose');
-//Item = require('./models/item');
-/*
-function connected() {
-  console.log('connected');
-  item = new Item({
-    title: 'an new item',
-    geo: [4.926208, 52.388065]
-  });
 
-  item.save();
+var db = {};
 
-  
+db.connect = function() {
+  var name = arguments.length > 1 ? arguments[0] : 'zz';
+  var done = arguments[arguments.length - 1];
 
-}
-*/
-
-function connect(done) {
-  mongoose.connect('mongodb://localhost/test');
+  mongoose.connect('mongodb://localhost/' + name);
   var db = mongoose.connection;
 
   db.on('error', function(e) {
@@ -25,8 +15,6 @@ function connect(done) {
   db.once('open', function() {
     return done();
   });
-}
-
-module.exports = {
-  connect: connect
 };
+
+module.exports = db;

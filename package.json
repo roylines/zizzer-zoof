@@ -25,7 +25,8 @@
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
-    "grunt-exec": "*"
+    "grunt-exec": "*",
+    "mocha": "*"
   },
   "engines": {
     "node": "0.10.x",
@@ -36,6 +37,7 @@
     "url": "http://github.com/roylines/zizzer-zoof.git"
   },
   "scripts": {
-    "start": "naught start app.js"
+    "start": "naught start app.js",
+    "test": "mocha test/*.js" 
   }
 }
