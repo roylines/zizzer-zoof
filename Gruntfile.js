@@ -92,13 +92,22 @@ module.exports = function(grunt) {
       }
     },
 
+    mochaTest: {
+      server: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/*.js']
+      }
+    },
+
     watch: {
       angular: {
         files: ['angular/*/*.js'],
         tasks: ['angular']
       },
       server: {
-        files: ['app.js', 'models/*.js', 'lib/*.js'],
+        files: ['app.js', 'models/*.js', 'lib/*.js', 'test/*.js'],
         tasks: ['server']
       },
       grunt: {
@@ -120,11 +129,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-exec');
 
   // aliases
   grunt.registerTask('angular', ['concat:angular', 'uglify:angular', 'jshint:angular']);
-  grunt.registerTask('server', ['jshint:server', 'exec:restart']);
+  grunt.registerTask('server', ['jshint:server', 'mochaTest:server', 'exec:restart']);
   grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
   grunt.registerTask('default', ['sass', 'angular', 'server']);
 };

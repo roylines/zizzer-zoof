@@ -26,6 +26,7 @@
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "grunt-exec": "*",
+    "grunt-mocha-test": "*",
     "mocha": "*"
   },
   "engines": {
@@ -38,6 +39,6 @@
   },
   "scripts": {
     "start": "naught start app.js",
-    "test": "mocha test/*.js" 
+    "test": "mocha --reporter spec test/*.js" 
   }
 }
