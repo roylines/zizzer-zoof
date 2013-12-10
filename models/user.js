@@ -1,14 +1,15 @@
 var async = require('async'),
-mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  pw = require('credential');
 
 var schema = new mongoose.Schema({
   email: {
     type: String,
     lowercase: true,
     required: true,
-    unique: true
+    unique: true,
   },
-  hash: {
+  password: {
     type: String,
     required: true
   },
@@ -18,8 +19,23 @@ var schema = new mongoose.Schema({
     index: "2dsphere"
   }
 }, {
-  autoIndex: true,
-  strict: true
+  safe: true
+});
+
+schema.pre('save', function(done) {
+  var user = this;
+
+  if (!user.isModified('password')) return done();
+
+  return async.waterfall([
+    function(cb) {
+      return pw.hash(user.password, cb);
+    },
+    function(hash, cb) {
+      user.password = hash;
+      return cb();
+    }
+  ], done);
 });
 
 schema.methods.valid = function(email, password, done) {
@@ -28,14 +44,14 @@ schema.methods.valid = function(email, password, done) {
     function(cb) {
       return this.findOne({
         email: email
-      }, '_id, hash', cb);
+      }, '_id, password', cb);
     },
     function(u, cb) {
       if (u === null) {
         return cb('wrong user');
       }
       id = u._id;
-      return pw.verify(u.hash, password, cb);
+      return pw.verify(u.password, password, cb);
     },
     function(valid, cb) {
       if (!valid) {

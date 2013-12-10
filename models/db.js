@@ -1,20 +1,29 @@
 var async = require('async'),
   mongoose = require('mongoose');
 
+//mongoose.set('debug', true);
+
 var db = {};
+
+var models = ['user'];
+
+function ensureIndexes(done) {
+  return async.each(models, function(model, cb) {
+    var m = require('./' + model);
+    return m.ensureIndexes(cb);
+  }, done);
+};
 
 db.connect = function() {
   var name = arguments.length > 1 ? arguments[0] : 'zz';
   var done = arguments[arguments.length - 1];
-
-  console.log('connecting to ' + name);
 
   mongoose.connect('mongodb://localhost/' + name);
   db.connection = mongoose.connection;
 
   db.connection.on('error', done);
   db.connection.once('open', function() {
-    return done();
+    return ensureIndexes(done);
   });
 };
 
