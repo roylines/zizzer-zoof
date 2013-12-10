@@ -5,14 +5,14 @@ var async = require('async'),
 
 var db = {};
 
-var models = ['user'];
+var models = ['user', 'item'];
 
 function ensureIndexes(done) {
   return async.each(models, function(model, cb) {
     var m = require('./' + model);
     return m.ensureIndexes(cb);
   }, done);
-};
+}
 
 db.connect = function() {
   var name = arguments.length > 1 ? arguments[0] : 'zz';

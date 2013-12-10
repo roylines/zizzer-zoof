@@ -38,11 +38,13 @@ schema.pre('save', function(done) {
   ], done);
 });
 
-schema.methods.valid = function(email, password, done) {
+var model = mongoose.model('User', schema);
+
+model.findByEmailAndPassword = function(email, password, done) {
   var id = null;
   async.waterfall([
     function(cb) {
-      return this.findOne({
+      return model.findOne({
         email: email
       }, '_id, password', cb);
     },
@@ -62,4 +64,4 @@ schema.methods.valid = function(email, password, done) {
   ], done);
 };
 
-module.exports = mongoose.model('User', schema);
+module.exports = model;
