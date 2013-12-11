@@ -2,7 +2,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true);
 
-    var routes = ['login', 'selling'];
+    var routes = ['login', 'selling', 'signup'];
     for (var i = 0; i < routes.length; ++i) {
       var template = {
         templateUrl: '/partial/' + routes[i],
@@ -12,7 +12,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     }
 
     $routeProvider.otherwise({
-      redirectTo: '/login'
+      redirectTo: '/signup'
     });
 
     var interceptor = ['$q',
@@ -25,7 +25,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
           var status = response.status;
 
           if (status == 401) {
-            window.location = "/login";
+            window.location = "/signup";
             return;
           }
 

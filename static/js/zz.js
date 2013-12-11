@@ -1,12 +1,12 @@
 /*zizzer-zoof: Copyright (C) 2012-2013, Roy Lines, http://roylines.co.uk*/
-var app = angular.module('app', ['ngRoute', 'services']);
+var app = angular.module('app', ['ngRoute', 'services', 'leaflet-directive']);
 var services = angular.module('services', ['ngResource']);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true);
 
-    var routes = ['login', 'selling'];
+    var routes = ['login', 'selling', 'signup'];
     for (var i = 0; i < routes.length; ++i) {
       var template = {
         templateUrl: '/partial/' + routes[i],
@@ -16,7 +16,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     }
 
     $routeProvider.otherwise({
-      redirectTo: '/login'
+      redirectTo: '/signup'
     });
 
     var interceptor = ['$q',
@@ -29,7 +29,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
           var status = response.status;
 
           if (status == 401) {
-            window.location = "/login";
+            window.location = "/signup";
             return;
           }
 
@@ -61,6 +61,12 @@ services.factory('Logout', ['$resource',
 services.factory('Items', ['$resource',
   function($resource) {
     return $resource('/api/1/items/:id');
+  }
+]);
+
+services.factory('Users', ['$resource',
+  function($resource) {
+    return $resource('/api/1/users');
   }
 ]);
 
@@ -131,6 +137,30 @@ app.controller('selling', ['$scope', 'Items',
     };
 
     $scope.forSale = Items.query({ status: 'selling' });
+  }
+]);
+
+app.controller('signup', ['$scope', '$location', 'Users',
+  function($scope, $location, Users) {
+    $scope.busy = false;
+
+    var ok = function() {
+      $location.path('/selling');
+    };
+
+    var fail = function(res) {
+      $scope.error = res.data;
+      $scope.busy = false;
+    };
+
+    $scope.signup = function(email, password) {
+      $scope.busy = true;
+      var details = {
+        email: email,
+        password: password
+      };
+      Users.save({}, details, ok, fail);
+    };
   }
 ]);
 

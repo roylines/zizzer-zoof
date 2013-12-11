@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="small-12 large-offset-3 large-6 columns">
+    <form name="details">
+      <fieldset ng-disabled="busy">
+        <legend>Sign up</legend>
+        <input ng-model="email" ng-change="error = null" type="email" placeholder="Your email" autofocus required/>
+
+        <input ng-model="password" tng-change="error = null" type="password" placeholder="Create a password" required/>
+        <small ng-show="error" ng-bind="error" class="error"></small>
+
+        <button><i class="fi-marker"></i></button>
+
+        <legend>Your location</legend>
+        <leaflet id="signupMap"/></leaflet>
+        
+        <button ng-click="signup(email, password)" ng-disabled="!details.$valid"i>Sign up</button>
+        <a href="/login">or sign in</a>
+      </fieldset>
+    </form>
+  </div>
+</div>

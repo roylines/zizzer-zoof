@@ -1,5 +1,5 @@
 @import "../../thirdparty/foundation/scss/foundation.scss";
-@import "../../thirdparty/foundation-icons/foundation_icons_general/sass/general_foundicons.scss";
+//@import "../../thirdparty/foundation-icons/foundation_icons_general/sass/general_foundicons.scss";
 
 .content {
   width: 100%;
@@ -12,4 +12,16 @@
 .preview {
   width: 300px;
   margin-bottom: 5px; 
+}
+
+#signupMap {
+  height: 180px;
+  margin-bottom: 10px;
+}
+
+button {
+  i {
+    font-size: 35px;;
+    line-height: 35px;
+  }
 }

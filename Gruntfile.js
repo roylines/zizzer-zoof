@@ -1,9 +1,7 @@
 module.exports = function(grunt) {
-
   var thirdparty = '../../thirdparty/';
 
   grunt.initConfig({
-
     pkg: grunt.file.readJSON('package.json'),
 
     exec: {
@@ -36,10 +34,11 @@ module.exports = function(grunt) {
           thirdparty + '/foundation/js/vendor/jquery.js',
           thirdparty + '/foundation/js/vendor/*.js',
           thirdparty + '/foundation/js/foundation/foundation.js',
-          //         thirdparty + '/foundation/js/foundation/foundation.*.js',
           thirdparty + '/angular/angular-1.2.2/angular.js',
           thirdparty + '/angular/angular-1.2.2/angular-route.js',
-          thirdparty + '/angular/angular-1.2.2/angular-resource.js'
+          thirdparty + '/angular/angular-1.2.2/angular-resource.js',
+          thirdparty + '/leaflet/0.7.1/leaflet-src.js',
+          thirdparty + '/angular-leaflet-directive/dist/angular-leaflet-directive.min.js'
         ],
         dest: 'static/js/thirdparties.js'
       },
@@ -72,8 +71,30 @@ module.exports = function(grunt) {
       "foundation-icons": {
         files: [{
             expand: true,
-            src: [thirdparty + '/foundation-icons/foundation_icons_general/fonts/*'],
-            dest: 'static/fonts/',
+            src: [thirdparty + '/foundation-icons-3/foundation-icons.*'],
+            dest: 'static/css/',
+            flatten: true,
+            filter: 'isFile'
+          }, {
+            expand: true,
+            src: [thirdparty + '/foundation-icons-3/svgs/*'],
+            dest: 'static/css/svgs',
+            flatten: true,
+            filter: 'isFile'
+          }
+        ]
+      },
+      "leaflet": {
+        files: [{
+            expand: true,
+            src: [thirdparty + '/leaflet/0.7.1/images/*'],
+            dest: 'static/images/',
+            flatten: true,
+            filter: 'isFile'
+          }, {
+            expand: true,
+            src: [thirdparty + '/leaflet/0.7.1/leaflet.css'],
+            dest: 'static/css/',
             flatten: true,
             filter: 'isFile'
           }
@@ -133,8 +154,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-exec');
 
   // aliases
-  grunt.registerTask('angular', ['concat:angular', 'uglify:angular', 'jshint:angular']);
+  grunt.registerTask('angular', ['jshint:angular', 'concat:angular', 'uglify:angular']);
   grunt.registerTask('server', ['jshint:server', 'mochaTest:server', 'exec:restart']);
-  grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
+  grunt.registerTask('thirdparty', ['copy:foundation-icons', 'copy:leaflet', 'concat:thirdparty', 'uglify:thirdparty']);
   grunt.registerTask('default', ['sass', 'angular', 'server']);
 };
