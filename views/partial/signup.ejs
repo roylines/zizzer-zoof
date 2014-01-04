@@ -8,10 +8,11 @@
         <input ng-model="password" tng-change="error = null" type="password" placeholder="Create a password" required/>
         <small ng-show="error" ng-bind="error" class="error"></small>
 
-        <button><i class="fi-marker"></i></button>
+        <p>In order to find things near you, we need to know where you are. </p>
+        <button class="small" ng-click="findLocation()">Find my location</button>
 
-        <legend>Your location</legend>
-        <leaflet id="signupMap"/></leaflet>
+        <legend>Are you here?</legend>
+        <leaflet id="signupMap" defaults="defaults" center="center" markers="markers"/></leaflet>
         
         <button ng-click="signup(email, password)" ng-disabled="!details.$valid"i>Sign up</button>
         <a href="/login">or sign in</a>

@@ -1,28 +1,21 @@
 var async = require('async'),
   db = require('./models/db'),
   express = require('express'),
+  logger = require('./lib/logger'),
   routes = require('./lib/routes'),
   utils = require('./lib/utils');
 
-var port = 8080;
+var port = 8000;
 var app = null;
 
-function send(status, done) {
-  if (process.send) {
-    process.send(status);
-  }
-  return done();
-}
-
-function start() {
+var start = function() {
   app = express();
   app.use(express.static(__dirname + '/static'));
-  app.use(express.static(__dirname + '/db/all'));
   app.use(express.cookieParser());
   app.use(express.session({
     secret: process.env.EXPRESS_SESSION_SECRET
   }));
-  app.use(express.logger());
+  app.use(logger.middleware);
   app.use(express.json());
   app.use(utils.middleware);
   app.locals({
@@ -37,22 +30,13 @@ function start() {
     },
     function(cb) {
       return app.listen(port, cb);
-    },
-    function(cb) {
-      console.log('listening on: ' + port);
-      return send('online', cb);
     }
   ], function(e) {
     if (e) {
-      console.error(e);
+      logger.error(e);
       process.exit(1);
     }
-  });
-
-  process.on('message', function(message) {
-    if (message === 'shutdown') {
-      process.exit(0);
-    }
+    logger.info('listening on: ' + port);
   });
 }
 

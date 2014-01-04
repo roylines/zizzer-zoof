@@ -14,7 +14,8 @@
     "formidable": "*",
     "gm": "*",
     "mongoose": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "winston": "*"
   },
   "devDependencies": {
     "grunt": "*",
@@ -38,7 +39,7 @@
     "url": "http://github.com/roylines/zizzer-zoof.git"
   },
   "scripts": {
-    "start": "naught start app.js",
+    "start": "node app.js",
     "test": "mocha --reporter spec test/*.js" 
   }
 }
