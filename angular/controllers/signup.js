@@ -1,6 +1,10 @@
 app.controller('signup', ['$scope', '$location', 'Users',
   function($scope, $location, Users) {
-
+    $scope.center = {
+      lat: -34.397,
+      lng:150.644
+    };
+    
     var ok = function() {
       $location.path('/selling');
     };
@@ -16,6 +20,10 @@ app.controller('signup', ['$scope', '$location', 'Users',
         if (status == google.maps.GeocoderStatus.OK) {
           console.log(results);
           $scope.formatted_address = results[0].formatted_address;
+          $scope.center = {
+            lat: results[0].geometry.location.b,
+            lng: results[0].geometry.location.d
+          };
         } else {
           $scope.error = status;
         }

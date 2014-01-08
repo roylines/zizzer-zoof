@@ -93,6 +93,36 @@ app.directive('fileInput', ['$parse',
   }
 ]);
 
+app.directive('map', [
+  function() {
+    return {
+      restrict: "EA",
+      template: "<div class='map'></div>",
+      replace: true,
+      link: function(scope, element, attrs) {
+        var zoom = function() {
+          return scope[attrs.zoom || 'zoom'] || 10;
+        };
+
+        var center = function() {
+          var c = scope[attrs.center || 'center'];
+          return new google.maps.LatLng(c.lat, c.lng);
+        };
+
+        var options = {
+          zoom: zoom(),
+          center: center()
+        };
+
+        var map = new google.maps.Map(element[0], options);
+        scope.$watch(attrs.center || 'center', function() {
+          map.setCenter(center());
+        }, true);
+      }
+    };
+  }
+]);
+
 app.controller('login', ['$scope', '$location', 'Login',
   function($scope, $location, Login) {
     $scope.busy = false;
@@ -142,7 +172,11 @@ app.controller('selling', ['$scope', 'Items',
 
 app.controller('signup', ['$scope', '$location', 'Users',
   function($scope, $location, Users) {
-
+    $scope.center = {
+      lat: -34.397,
+      lng:150.644
+    };
+    
     var ok = function() {
       $location.path('/selling');
     };
@@ -158,6 +192,10 @@ app.controller('signup', ['$scope', '$location', 'Users',
         if (status == google.maps.GeocoderStatus.OK) {
           console.log(results);
           $scope.formatted_address = results[0].formatted_address;
+          $scope.center = {
+            lat: results[0].geometry.location.b,
+            lng: results[0].geometry.location.d
+          };
         } else {
           $scope.error = status;
         }
