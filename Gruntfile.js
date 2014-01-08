@@ -4,12 +4,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    exec: {
-      restart: {
-        command: 'naught deploy'
-      }
-    },
-
     concat: {
       options: {
         stripBanners: true,
@@ -36,9 +30,7 @@ module.exports = function(grunt) {
           thirdparty + '/foundation/js/foundation/foundation.js',
           thirdparty + '/angular/angular-1.2.2/angular.js',
           thirdparty + '/angular/angular-1.2.2/angular-route.js',
-          thirdparty + '/angular/angular-1.2.2/angular-resource.js',
-          thirdparty + '/leaflet/0.7.1/leaflet-src.js',
-          thirdparty + '/angular-leaflet-directive/dist/angular-leaflet-directive.min.js'
+          thirdparty + '/angular/angular-1.2.2/angular-resource.js'
         ],
         dest: 'static/js/thirdparties.js'
       },
@@ -79,22 +71,6 @@ module.exports = function(grunt) {
             expand: true,
             src: [thirdparty + '/foundation-icons-3/svgs/*'],
             dest: 'static/css/svgs',
-            flatten: true,
-            filter: 'isFile'
-          }
-        ]
-      },
-      "leaflet": {
-        files: [{
-            expand: true,
-            src: [thirdparty + '/leaflet/0.7.1/images/*'],
-            dest: 'static/images/',
-            flatten: true,
-            filter: 'isFile'
-          }, {
-            expand: true,
-            src: [thirdparty + '/leaflet/0.7.1/leaflet.css'],
-            dest: 'static/css/',
             flatten: true,
             filter: 'isFile'
           }
@@ -155,7 +131,7 @@ module.exports = function(grunt) {
 
   // aliases
   grunt.registerTask('angular', ['jshint:angular', 'concat:angular', 'uglify:angular']);
-  grunt.registerTask('server', ['jshint:server', 'mochaTest:server', 'exec:restart']);
-  grunt.registerTask('thirdparty', ['copy:foundation-icons', 'copy:leaflet', 'concat:thirdparty', 'uglify:thirdparty']);
+  grunt.registerTask('server', ['jshint:server', 'mochaTest:server']);
+  grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
   grunt.registerTask('default', ['sass', 'angular', 'server']);
 };

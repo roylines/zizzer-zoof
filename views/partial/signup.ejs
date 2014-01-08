@@ -3,20 +3,21 @@
     <form name="details">
       <fieldset ng-disabled="busy">
         <legend>Sign up</legend>
-        <input ng-model="email" ng-change="error = null" type="email" placeholder="Your email" autofocus required/>
+        <input ng-model="email" ng-change="error = null" type="email" placeholder="Email" autofocus required/>
 
-        <input ng-model="password" tng-change="error = null" type="password" placeholder="Create a password" required/>
+        <input ng-model="password" tng-change="error = null" type="password" placeholder="Password" required/>
         <small ng-show="error" ng-bind="error" class="error"></small>
 
-        <p>In order to find things near you, we need to know where you are. </p>
-        <button class="small" ng-click="findLocation()">Find my location</button>
+        <input ng-model="postcode" ng-change="error = null" type="text" placeholder="Postcode" required/>
+        <button ng-hide="formatted_address" ng-click="search(postcode)" ng-disabled="!details.$valid"i>Sign up</button>
+        <a ng-hide="formatted_address" href="/login">or sign in</a>
+        <div ng-show="formatted_address" data-alert class="alert-box success radius">
+          Is this the correct address for your postcode:<br/> 
+          <span>{{ formatted_address }}</span>?
+        </div>
 
-        <legend>Are you here?</legend>
-        <leaflet id="signupMap" defaults="defaults" center="center" markers="markers"/></leaflet>
-        
-        <button ng-click="signup(email, password)" ng-disabled="!details.$valid"i>Sign up</button>
-        <a href="/login">or sign in</a>
       </fieldset>
     </form>
   </div>
 </div>
+<!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%=GOOGLE_API_KEY%>&sensor=false"></script-->

@@ -38,6 +38,6 @@ var start = function() {
     }
     logger.info('listening on: ' + port);
   });
-}
+};
 
 start();

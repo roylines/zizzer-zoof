@@ -1,22 +1,5 @@
 app.controller('signup', ['$scope', '$location', 'Users',
   function($scope, $location, Users) {
-    $scope.busy = false;
-    $scope.center = {
-      lat: 51.505,
-      lng: -0.09,
-      zoom: 13
-    };
-
-    $scope.markers = {
-      main_marker: {
-        lat: $scope.center.lat,
-        lng: $scope.center.lng,
-        focus: true,
-        message: "Hey, drag me if you want",
-        title: "Marker",
-        draggable: true
-      }
-    };
 
     var ok = function() {
       $location.path('/selling');
@@ -27,6 +10,26 @@ app.controller('signup', ['$scope', '$location', 'Users',
       $scope.busy = false;
     };
 
+    var searchResults = function(results, status) {
+      $scope.$apply(function() {
+        $scope.busy = false;
+        if (status == google.maps.GeocoderStatus.OK) {
+          console.log(results);
+          $scope.formatted_address = results[0].formatted_address;
+        } else {
+          $scope.error = status;
+        }
+      });
+    };
+
+    $scope.search = function(search) {
+      $scope.busy = true;
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({
+        'address': search
+      }, searchResults);
+    };
+
     $scope.signup = function(email, password) {
       $scope.busy = true;
       var details = {
@@ -35,45 +38,5 @@ app.controller('signup', ['$scope', '$location', 'Users',
       };
       Users.save({}, details, ok, fail);
     };
-
-    $scope.findLocation = function() {
-      $scope.center = {
-        lat: 51.505,
-        lng: -0.09,
-        zoom: 13
-      };
-
-      $scope.markers.main_marker = {
-        lat: $scope.center.lat,
-        lng: $scope.center.lng,
-        focus: true,
-        message: "Please move me if I'm wrong",
-        title: "Marker",
-        draggable: true
-      };
-    };
-
-    function gotPosition(position) {
-      $scope.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        zoom: 13
-      };
-
-      $scope.markers = {
-        main_marker: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          focus: true,
-          message: "Please move me if I'm wrong",
-          title: "Marker",
-          draggable: true
-        }
-      };
-    }
-
-    navigator.geolocation.getCurrentPosition(gotPosition, function(err) {
-      console.log(err);
-    });
   }
 ]);
