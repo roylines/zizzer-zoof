@@ -1,11 +1,5 @@
 app.controller('signup', ['$scope', '$location', 'Users',
   function($scope, $location, Users) {
-    $scope.center = {
-      lat: -34.397,
-      lng:150.644
-    };
-    $scope.zoom = 14;
-    
     var ok = function() {
       $location.path('/selling');
     };
@@ -19,6 +13,10 @@ app.controller('signup', ['$scope', '$location', 'Users',
       $scope.$apply(function() {
         $scope.busy = false;
         if (status == google.maps.GeocoderStatus.OK) {
+          if(results.length !== 1) {
+            $scope.error = 'too many locations, please be more specific';
+            return;
+          }
           console.log(results);
           $scope.center = {
             lat: results[0].geometry.location.b,
@@ -39,12 +37,15 @@ app.controller('signup', ['$scope', '$location', 'Users',
       }, searchResults);
     };
 
-    $scope.signup = function(email, password) {
+    $scope.signup = function() {
       $scope.busy = true;
+
       var details = {
-        email: email,
-        password: password
+        email: $scope.email,
+        password: $scope.password,
+        geo: [$scope.center.lng, $scope.center.lat] 
       };
+
       Users.save({}, details, ok, fail);
     };
   }

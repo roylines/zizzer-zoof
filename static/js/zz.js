@@ -100,24 +100,27 @@ app.directive('map', [
       template: "<div class='map'></div>",
       replace: true,
       link: function(scope, element, attrs) {
-        var zoom = function() {
-          return scope[attrs.zoom || 'zoom'] || 10;
+
+        var map;
+        var centerChanged = function() {
+          if (scope.center === undefined) {
+            return;
+          }
+
+          var center = new google.maps.LatLng(scope.center.lat, scope.center.lng);
+
+          if (map) {
+            map.setCenter(center);
+          } else {
+            var options = {
+              zoom: 15,
+              center: center
+            };
+            map = new google.maps.Map(element[0], options);
+          }
         };
 
-        var center = function() {
-          var c = scope[attrs.center || 'center'];
-          return new google.maps.LatLng(c.lat, c.lng);
-        };
-
-        var options = {
-          zoom: zoom(),
-          center: center()
-        };
-
-        var map = new google.maps.Map(element[0], options);
-        scope.$watch(attrs.center || 'center', function() { 
-          map.setCenter(center());
-        }, true);
+        scope.$watch('center', centerChanged, true);
       }
     };
   }
@@ -172,12 +175,6 @@ app.controller('selling', ['$scope', 'Items',
 
 app.controller('signup', ['$scope', '$location', 'Users',
   function($scope, $location, Users) {
-    $scope.center = {
-      lat: -34.397,
-      lng:150.644
-    };
-    $scope.zoom = 14;
-    
     var ok = function() {
       $location.path('/selling');
     };
@@ -191,6 +188,10 @@ app.controller('signup', ['$scope', '$location', 'Users',
       $scope.$apply(function() {
         $scope.busy = false;
         if (status == google.maps.GeocoderStatus.OK) {
+          if(results.length !== 1) {
+            $scope.error = 'too many locations, please be more specific';
+            return;
+          }
           console.log(results);
           $scope.center = {
             lat: results[0].geometry.location.b,
@@ -211,12 +212,15 @@ app.controller('signup', ['$scope', '$location', 'Users',
       }, searchResults);
     };
 
-    $scope.signup = function(email, password) {
+    $scope.signup = function() {
       $scope.busy = true;
+
       var details = {
-        email: email,
-        password: password
+        email: $scope.email,
+        password: $scope.password,
+        geo: [$scope.center.lng, $scope.center.lat] 
       };
+
       Users.save({}, details, ok, fail);
     };
   }

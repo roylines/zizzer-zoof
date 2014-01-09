@@ -3,26 +3,23 @@
     <form name="details" ng-disabled="busy">
       <fieldset ng-hide="formatted_address">
         <legend>Sign up</legend>
-        <input ng-model="email" ng-change="error = null" type="email" placeholder="Email" autofocus/>
+        <input ng-model="email" ng-change="error = null" type="email" placeholder="Email" autofocus required/>
 
-        <input ng-model="password" tng-change="error = null" type="password" placeholder="Password"/>
+        <input ng-model="password" tng-change="error = null" type="password" placeholder="Password" required/>
+
+        <input ng-model="location" ng-change="error = null" type="text" placeholder="Location (a postcode will do)" required/>
         <small ng-show="error" ng-bind="error" class="error"></small>
-
-        <input ng-model="postcode" ng-change="error = null" type="text" placeholder="Postcode" required/>
-        <button ng-click="search(postcode)" ng-disabled="!details.$valid"i>Sign up</button>
+        <button ng-click="search(location)" ng-disabled="!details.$valid"i>Sign up</button>
         <a href="/login">or sign in</a>
       </fieldset>
       <fieldset ng-show="formatted_address">
-        <legend>Confirmation</legend>
-        <dl>
-          <dt>Email</dt>
-          <dd>{{ email }}</dd>
-          <dt>Location</dt>
-          <dd>{{ formatted_address }}</dd>
-        </dl>
+        <legend>Confirmation for {{ email }}</legend>
+        <div data-alert class="alert-box warning">Please double check your location is correct (it's how we find local people to trade with you).</div>
         <map></map>
-        <button class="success">Create my account</button>
-        <button class="alert" ng-click="formatted_address=null">Change details</button>
+        <h3>{{ formatted_address }}</h3>
+        <h5>Is this correct?</h5>
+        <button class="success" ng-click="signup()">Yes</button>
+        <button class="alert" ng-click="formatted_address=null">No</button>        
       </fieldset>
     </form>
   </div>
