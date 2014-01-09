@@ -20,7 +20,7 @@ app.directive('map', [
         };
 
         var map = new google.maps.Map(element[0], options);
-        scope.$watch(attrs.center || 'center', function() {
+        scope.$watch(attrs.center || 'center', function() { 
           map.setCenter(center());
         }, true);
       }

@@ -115,7 +115,7 @@ app.directive('map', [
         };
 
         var map = new google.maps.Map(element[0], options);
-        scope.$watch(attrs.center || 'center', function() {
+        scope.$watch(attrs.center || 'center', function() { 
           map.setCenter(center());
         }, true);
       }
@@ -176,6 +176,7 @@ app.controller('signup', ['$scope', '$location', 'Users',
       lat: -34.397,
       lng:150.644
     };
+    $scope.zoom = 14;
     
     var ok = function() {
       $location.path('/selling');
@@ -191,11 +192,11 @@ app.controller('signup', ['$scope', '$location', 'Users',
         $scope.busy = false;
         if (status == google.maps.GeocoderStatus.OK) {
           console.log(results);
-          $scope.formatted_address = results[0].formatted_address;
           $scope.center = {
             lat: results[0].geometry.location.b,
             lng: results[0].geometry.location.d
           };
+          $scope.formatted_address = results[0].formatted_address;
         } else {
           $scope.error = status;
         }
