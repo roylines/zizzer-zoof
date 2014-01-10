@@ -181,6 +181,7 @@ app.controller('signup', ['$scope', '$location', 'Users',
 
     var fail = function(res) {
       $scope.error = res.data;
+      $scope.formatted_address = null;
       $scope.busy = false;
     };
 
