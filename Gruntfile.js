@@ -6,6 +6,12 @@ module.exports = function(grunt) {
     exec: {
       start: {
         command : 'node app.js'
+      },
+      serverCoverage: {
+        command: './node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha test/*.js --dir ./coverage'
+      },
+      serverCheckCoverage: {
+        command: './node_modules/istanbul/lib/cli.js check-coverage --statements 100 --functions 100 --branches 100 --lines 100 --root ./coverage'
       }
     },
     concat: {
@@ -93,15 +99,6 @@ module.exports = function(grunt) {
       }
     },
 
-    mochaTest: {
-      server: {
-        options: {
-          reporter: 'spec'
-        },
-        src: ['test/*.js']
-      }
-    },
-
     watch: {
       angular: {
         files: ['angular/*/*.js'],
@@ -135,7 +132,7 @@ module.exports = function(grunt) {
 
   // aliases
   grunt.registerTask('angular', ['jshint:angular', 'concat:angular', 'uglify:angular']);
-  grunt.registerTask('server', ['jshint:server', 'mochaTest:server']);
+  grunt.registerTask('server', ['jshint:server', 'exec:serverCoverage']);//, 'exec:serverCheckCoverage']);
   grunt.registerTask('start', ['exec:start']);
   grunt.registerTask('test', ['server']);
   grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);

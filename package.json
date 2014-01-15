@@ -42,6 +42,7 @@
   },
   "scripts": {
     "start": "grunt start",
-    "test": "grunt test"
+    "test": "grunt test",
+    "watch": "grunt watch"
   }
 }
