@@ -2,7 +2,7 @@ var assert = require('assert'),
   db = require('../models/db'),
   User = require('../models/user.js');
 
-describe('user', function() {
+describe('user (model)', function() {
   before(function(done) {
     return db.connect('test', function(e) {
       if (e) {

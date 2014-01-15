@@ -3,7 +3,11 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
+    exec: {
+      start: {
+        command : 'node app.js'
+      }
+    },
     concat: {
       options: {
         stripBanners: true,
@@ -132,6 +136,8 @@ module.exports = function(grunt) {
   // aliases
   grunt.registerTask('angular', ['jshint:angular', 'concat:angular', 'uglify:angular']);
   grunt.registerTask('server', ['jshint:server', 'mochaTest:server']);
+  grunt.registerTask('start', ['exec:start']);
+  grunt.registerTask('test', ['server']);
   grunt.registerTask('thirdparty', ['copy:foundation-icons', 'concat:thirdparty', 'uglify:thirdparty']);
   grunt.registerTask('default', ['sass', 'angular', 'server']);
 };
