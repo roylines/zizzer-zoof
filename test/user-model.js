@@ -1,4 +1,5 @@
 var assert = require('assert'),
+  async = require('async'),
   db = require('../models/db'),
   User = require('../models/user.js');
 
@@ -35,6 +36,20 @@ describe('user (model)', function() {
     });
   });
 
+  it('can update a user', function(done) {
+    async.waterfall([
+      function(cb) {
+        return User.findOne({
+          email: 'mocha@mocha.com'
+        }, cb);
+      },
+      function(u, cb) {
+        u.geo = [4, 5];
+        return u.save(cb);
+      }
+    ], done);
+  });
+
   it('findByEmailAndPassword for valid users should return id', function(done) {
     User.findByEmailAndPassword('mocha@mocha.com', 'PASSWORD', function(e, id) {
       assert.equal(e, null);
@@ -56,7 +71,7 @@ describe('user (model)', function() {
       return done();
     });
   });
-  
+
   it('findByEmailAndPassword for invalid password should return error', function(done) {
     User.findByEmailAndPassword('mocha@mocha.com', 'WRONGPASSWORD', function(e, id) {
       assert.equal(e, 'wrong password');
