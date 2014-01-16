@@ -5,27 +5,33 @@ var mongoose = require("mongoose"),
 
 var schema = new mongoose.Schema({
   desc: {
-    type: String
+    type: String,
+    required: true
   },
   imageId: {
-    type: String
+    type: String,
+    required: true
   },
   owner: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
+    //TODO required: true,
     index: true
   },
   price: {
     type: Number,
     max: 1000,
+    required: true,
     message: "Price must be less than £1000"
   },
   created: {
-    type: Date
+    type: Date,
+    required: true
   },
   geo: {
     type: [Number], // longitude, latitude
-    index: "2dsphere"
+    index: "2dsphere",
+    required: true
   }
 });
 

@@ -1,19 +1,13 @@
 var assert = require('assert'),
   async = require('async'),
-  db = require('../models/db'),
+  utils = require('./utils'),
   User = require('../models/user.js');
 
 describe('user (model)', function() {
-  before(function(done) {
-    return db.connect('test', function(e) {
-      if (e) {
-        return done(e);
-      }
-      setTimeout(done, 1000);
-    });
-  });
+  
+  before(utils.db.connect);
 
-  after(db.close);
+  after(utils.db.clear);
 
   it('can add a user', function(done) {
     var user = new User({
