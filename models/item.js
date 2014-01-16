@@ -35,7 +35,7 @@ var schema = new mongoose.Schema({
   }
 });
 
-schema.methods.findNearby = function(where, distance, done) {
+schema.statics.findNearby = function(where, distance, done) {
   return this.find({
     geo: {
       $near: {

@@ -6,6 +6,7 @@ var assert = require('assert'),
 
 describe('item (model)', function() {
   before(function(done) {
+    this.timeout(5000);
     return async.series([
       function(cb) {
         return utils.db.connect(cb);
@@ -35,7 +36,7 @@ describe('item (model)', function() {
     return item.save(done);
   });
 
-  it.skip('can find nearby items', function(done) {
+  it('can find nearby items', function(done) {
     Item.findNearby([1, 2], 1, function(e, items) {
       assert.equal(items.length, 1);
       assert.equal(items[0].desc, 'item1');
