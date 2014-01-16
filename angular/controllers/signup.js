@@ -20,8 +20,8 @@ app.controller('signup', ['$scope', '$location', 'Users',
           }
           console.log(results);
           $scope.center = {
-            lat: results[0].geometry.location.b,
-            lng: results[0].geometry.location.d
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
           };
           $scope.formatted_address = results[0].formatted_address;
         } else {
