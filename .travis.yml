@@ -4,5 +4,5 @@ node_js:
   -"0.10"
 services: mongodb
 before_script:
-  - "npm start"
-  - sleep 3 # give xvfb some time to start
+  - "npm start&"
+  - sleep 3 # give it a chance to connect to mongo
