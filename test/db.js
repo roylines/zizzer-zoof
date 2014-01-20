@@ -36,5 +36,4 @@ describe('db', function() {
       });
     });
   });
-
 });

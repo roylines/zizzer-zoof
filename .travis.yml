@@ -3,6 +3,15 @@ node_js:
   -"0.11"
   -"0.10"
 services: mongodb
+before_install:
+  - git clone git://github.com/n1k0/casperjs.git ~/casperjs
+  - cd ~/casperjs
+  - git checkout tags/1.1-beta3
+  - export PATH=$PATH:`pwd`/bin
+  - cd -
 before_script:
+  - phantomjs --version
+  - casperjs --version
   - "npm start&"
-  - sleep 3 # give it a chance to connect to mongo
+  - sleep 3
+
