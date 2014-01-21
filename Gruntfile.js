@@ -8,12 +8,13 @@ module.exports = function(grunt) {
         command : 'node app.js'
       },
       serverCoverage: {
-        command: './node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha test/*.js --dir ./coverage'
+        command: 'export SILENCE=yes;./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha test/*.js --dir ./coverage'
       },
       serverCheckCoverage: {
         command: './node_modules/istanbul/lib/cli.js check-coverage --statements 100 --functions 100 --branches 100 --lines 100 --root ./coverage'
       }
     },
+
     concat: {
       options: {
         stripBanners: true,

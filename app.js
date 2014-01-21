@@ -5,7 +5,7 @@ var async = require('async'),
 
 var port = 8000;
 var app = express();
-routes.listen(app, port, function(e) {
+routes.listen(app, port, 'zz', function(e) {
   if (e) {
     logger.error(e);
     process.exit(1);

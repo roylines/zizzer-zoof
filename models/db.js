@@ -1,7 +1,6 @@
 var async = require('async'),
+    logger = require('../lib/logger'),
   mongoose = require('mongoose');
-
-//mongoose.set('debug', true);
 
 var db = {};
 
@@ -9,14 +8,14 @@ var models = ['user', 'item'];
 
 function ensureIndexes(done) {
   return async.each(models, function(model, cb) {
+    logger.info('checking indexes for ' + model + '...');
     var m = require('./' + model);
     return m.ensureIndexes(cb);
   }, done);
 }
 
-db.connect = function() {
-  var name = arguments.length > 1 ? arguments[0] : 'zz';
-  var done = arguments[arguments.length - 1];
+db.connect = function(name, done) {
+  logger.info('opening database ' + name + '...');
 
   mongoose.connect('mongodb://localhost/' + name);
   db.connection = mongoose.connection;
@@ -28,6 +27,7 @@ db.connect = function() {
 };
 
 db.close = function(done) {
+  logger.info('closing database...');
   if (db.connection) {
     db.connection.close(function(e) {
       delete db.connection;

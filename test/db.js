@@ -7,7 +7,7 @@ describe('db', function() {
 
   describe('connect', function() {
     it('should connect to default database', function(done) {
-      return db.connect(function(e) {
+      return db.connect('zz', function(e) {
         assert.equal(db.name(), 'zz');
         return done(e);
       });
@@ -27,7 +27,7 @@ describe('db', function() {
     });
     it('should close any open connections', function(done) {
       assert.equal(db.name(), null);
-      db.connect(function() {
+      db.connect('zz', function() {
         assert.equal(db.name(), 'zz');
         db.close(function(e) {
           assert.equal(db.name(), null);
