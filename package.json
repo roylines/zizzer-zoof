@@ -30,6 +30,7 @@
     "grunt-mocha-test": "*",
     "istanbul": "*",
     "mocha": "*",
+    "request": "*",
     "sinon": "*"
   },
   "engines": {
