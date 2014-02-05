@@ -15,7 +15,7 @@ var schema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    //TODO required: true,
+    required: true,
     index: true
   },
   price: {

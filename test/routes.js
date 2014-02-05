@@ -13,7 +13,7 @@ var get = function(url, done) {
 
 var assertStatusCode = function(url, statusCode) {
   return function(done) {
-    get('/', function(e, response, body) {
+    get(url, function(e, response, body) {
       assert.equal(statusCode || 200, response.statusCode);
       return done(e);
     });
@@ -22,7 +22,7 @@ var assertStatusCode = function(url, statusCode) {
 
 describe('routes', function() {
   var app = express();
-  
+
   before(function(done) {
     this.timeout(5000);
     return routes.listen(app, port, 'routestest', done);
@@ -33,4 +33,9 @@ describe('routes', function() {
   });
 
   it('calling / should return 200', assertStatusCode('/'));
+  it('calling /x should return 200', assertStatusCode('/x'));
+  it('calling /partial/unknown should return 404', assertStatusCode('/partial/unknown', 404));
+  it('calling /partial/selling should return 200', assertStatusCode('/partial/selling'));
+  it('calling /logout should return 200', assertStatusCode('/logout'));
+ 
 });
