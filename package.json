@@ -14,7 +14,7 @@
     "formidable": "*",
     "gm": "*",
     "mongoose": "*",
-    "underscore": "*",
+    "lodash": "*",
     "winston": "*"
   },
   "devDependencies": {
