@@ -18,16 +18,14 @@
     "winston": "*"
   },
   "devDependencies": {
-    "grunt": "*",
-    "grunt-cli": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-copy": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-sass": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-exec": "*",
-    "grunt-mocha-test": "*",
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-exec": "*",
+    "gulp-jshint": "*",
+    "gulp-mocha": "*",
+    "gulp-rename": "*",
+    "gulp-sass": "*",
+    "gulp-uglify": "*",
     "istanbul": "*",
     "mocha": "*",
     "request": "*",
@@ -42,8 +40,7 @@
     "url": "http://github.com/roylines/zizzer-zoof.git"
   },
   "scripts": {
-    "start": "grunt start",
-    "test": "grunt test",
-    "watch": "grunt watch"
+    "start": "node app.js",
+    "test": "mocha"
   }
 }

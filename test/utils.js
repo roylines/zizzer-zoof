@@ -1,7 +1,7 @@
 var async = require('async'),
-  db = require('../models/db');
-Item = require('../models/item.js'),
-User = require('../models/user.js');
+  db = require('../models/db'),
+  Item = require('../models/item.js'),
+  User = require('../models/user.js');
 
 var utils = {
   db: {}

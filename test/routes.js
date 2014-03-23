@@ -17,8 +17,8 @@ var assertStatusCode = function(url, statusCode) {
       assert.equal(statusCode || 200, response.statusCode);
       return done(e);
     });
-  }
-}
+  };
+};
 
 describe('routes', function() {
   var app = express();
