@@ -29,6 +29,7 @@ describe('routes', function() {
   });
 
   after(function(done) {
+    routes.close();
     return db.close(done);
   });
 

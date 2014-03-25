@@ -23,3 +23,4 @@ gulp.task('thirdparty-icons-svg', thirdparty.iconsSVG);
 gulp.task('thirdparty', ['thirdparty-uglify', 'thirdparty-icons-css', 'thirdparty-icons-svg']);
   
 gulp.task('default', ['angular', 'css', 'server']);
+gulp.task('test', ['server-lint', 'server-test']);
