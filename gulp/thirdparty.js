@@ -4,23 +4,31 @@ var thirdparty = {},
   rename = require('gulp-rename'),
   uglify = require('gulp-uglify');
 
-var path = '../../thirdparty/';
+var path = '../../thirdparty';
 
-thirdparty.iconsCSS = function() {
-  return gulp.src(path + '/foundation-icons-3/foundation-icons.*')
-    .pipe(gulp.dest('./static/css'));
+thirdparty.fonts = function() {
+  var src = [
+    path + '/semantic-0.15.1/packaged/fonts/*',
+  ];
+  
+  return gulp.src(src)
+    .pipe(gulp.dest('./static/fonts'));
 };
 
-thirdparty.iconsSVG = function() {
-  return gulp.src(path + '/foundation-icons-3/svgs/*')
-    .pipe(gulp.dest('./static/css/svgs'));
+thirdparty.css = function() {
+  var src = [
+    path + '/semantic-0.15.1/packaged/css/semantic.css',
+  ];
+  
+  return gulp.src(src)
+    .pipe(concat('thirdparties.css'))
+    .pipe(gulp.dest('./static/css'));
 };
 
 thirdparty.concat = function() {
   var src = [
-    path + '/foundation/js/vendor/jquery.js',
-    path + '/foundation/js/vendor/*.js',
-    path + '/foundation/js/foundation/foundation.js',
+    path + '/jquery/jquery-2.1.0.js',
+    path + '/semantic-0.15.1/packaged/javascript/semantic.js',
     path + '/angular/angular-1.2.2/angular.js',
     path + '/angular/angular-1.2.2/angular-route.js',
     path + '/angular/angular-1.2.2/angular-resource.js'
@@ -37,5 +45,11 @@ thirdparty.uglify = function() {
     .pipe(rename('thirdparties.min.js'))
     .pipe(gulp.dest('./static/js'));
 };
+
+gulp.task('thirdparty-concat', thirdparty.concat);
+gulp.task('thirdparty-uglify', ['thirdparty-concat'], thirdparty.uglify);
+gulp.task('thirdparty-css', thirdparty.css);
+gulp.task('thirdparty-fonts', thirdparty.fonts);
+gulp.task('thirdparty', ['thirdparty-uglify', 'thirdparty-css', 'thirdparty-fonts']);
 
 module.exports = thirdparty;

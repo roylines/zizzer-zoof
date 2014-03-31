@@ -1,28 +1,36 @@
-@import "../../thirdparty/foundation/scss/foundation.scss";
-//@import "../../thirdparty/foundation-icons/foundation_icons_general/sass/general_foundicons.scss";
+$masthead-background: blue; 
+$masthead-color: white; 
 
-.content {
-  width: 100%;
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 38px;
 }
 
-.hidden {
-  display: none;
+.main.menu {
+  top: 0px;
 }
 
-.preview {
-  width: 300px;
-  margin-bottom: 5px; 
-}
-
-.map {
-  height: 180px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-button {
-  i {
-    font-size: 35px;;
-    line-height: 35px;
+.masthead {
+  h1 {
+    font-size: 4em;
+  },
+  h2 {
+    font-size: 3em;
   }
 }
+
+/*
+.masthead {
+position: relative;
+overflow: hidden;
+background-color: $masthead-background;
+text-align: center;
+margin: 38px 0px 10px 0px;
+padding: 10px;
+color: $masthead-color;
+h1 {
+font-size: 6em;
+}
+}
+ */

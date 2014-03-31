@@ -3,36 +3,18 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
-<title></title>
-<link rel="stylesheet" href="css/foundation-icons.css" />
+<title ng-bind="title">Zizzer-Zoof</title>
+<link rel="stylesheet" href="css/thirdparties.css" />
 <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-<div class="row">
-  <div class="columns small-12">
-    <nav ng-controller="topbar" class="top-bar" data-topbar>
-      <ul class="title-area">
-        <li class="name">
-        <h1><a href="#">TODO</a></h1>
-        </li>
-      </ul>
-      <section class="top-bar-section">
-        <ul class="right">
-          <li><a ng-click="logout()">Logout</a></li>
-        </ul>
 
-        <!-- Left Nav Section -->
-        <ul class="left">
-        </ul>
-      </section>
-    </nav>
-  </div>
-</div>
+<body>
+<main-navigation></main-navigation>
 
 <ng-view/>
 
-<script src="js/thirdparties.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="js/thirdparties.js"></script>
+<!--script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script-->
 <script src="js/zz.js"></script>
 </body>
 </html>

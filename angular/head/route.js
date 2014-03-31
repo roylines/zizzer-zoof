@@ -5,6 +5,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     var routes = ['login', 'selling', 'signup'];
     for (var i = 0; i < routes.length; ++i) {
       var template = {
+        title: 'Zizzer-Zoof: ' + routes[i],
         templateUrl: '/partial/' + routes[i],
         controller: routes[i]
       };
@@ -12,7 +13,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     }
 
     $routeProvider.otherwise({
-      redirectTo: '/signup'
+      title: 'Zizzer-Zoof',
+      templateUrl: '/partial/landing',
+      controller: 'landing'
     });
 
     var interceptor = ['$q',
@@ -25,7 +28,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
           var status = response.status;
 
           if (status == 401) {
-            window.location = "/signup";
+            window.location = "/";
             return;
           }
 
@@ -39,5 +42,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     ];
 
     $httpProvider.responseInterceptors.push(interceptor);
+  }
+]);
+
+app.run(['$location', '$rootScope',
+  function($location, $rootScope) {
+    $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+      $rootScope.title = current.title;
+    });
   }
 ]);

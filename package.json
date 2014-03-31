@@ -23,12 +23,15 @@
     "gulp-exec": "*",
     "gulp-jshint": "*",
     "gulp-mocha": "*",
+    "gulp-plumber": "*",
     "gulp-rename": "*",
     "gulp-sass": "*",
     "gulp-uglify": "*",
+    "gulp-watch": "*",
     "istanbul": "*",
     "mocha": "*",
     "request": "*",
+    "require-all": "*",
     "sinon": "*"
   },
   "engines": {

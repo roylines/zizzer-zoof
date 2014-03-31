@@ -24,4 +24,8 @@ server.test = function() {
     .pipe(mocha(config));
 };
 
+gulp.task('server-lint', server.lint);
+gulp.task('server-test', server.test);
+gulp.task('server', ['server-lint']);//, 'server-test']);
+
 module.exports = server;
