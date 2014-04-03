@@ -1,25 +1,50 @@
+.dark0 {
+  background-color: #4D7BA6; }
+
+.dark10 {
+  background-color: #3d6283; }
+
+.dark15 {
+  background-color: #355572; }
+
+.dark20 {
+  background-color: #2d4860; }
+
+.dark30 {
+  background-color: #1d2e3d; }
+
+.dark60 {
+  background-color: black; }
+
+.light0 {
+  background-color: #4D7BA6; }
+
+.light10 {
+  background-color: #6b96bb; }
+
+.light15 {
+  background-color: #7da2c3; }
+
+.light20 {
+  background-color: #8eafcb; }
+
+.light30 {
+  background-color: #b1c7db; }
+
+.light60 {
+  background-color: white; }
+
 body {
   margin: 0;
-  padding: 0;
-  padding-top: 38px; }
-
-.main.menu {
-  top: 0px; }
-
-.masthead h1 {
-  font-size: 4em; }
+  padding: 0; }
 
 /*
-.masthead {
-  position: relative;
-  overflow: hidden;
-  background-color: $masthead-background;
-  text-align: center;
-  margin: 38px 0px 10px 0px;
-  padding: 10px;
-  color: $masthead-color;
-  h1 {
-    font-size: 6em;
+#main-nav {
+  background-color: $dark20;
+  a {
+    color: $light20;
+    font-weight: bold;
+    font-size: 5em;
   }
 }
 */

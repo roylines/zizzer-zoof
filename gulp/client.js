@@ -2,6 +2,7 @@ var client = {},
   concat = require('gulp-concat'),
   gulp = require('gulp'),
   jshint = require('gulp-jshint'),
+  minifyCss = require('gulp-minify-css'),
   rename = require('gulp-rename'),
   sass = require('gulp-sass'),
   uglify = require('gulp-uglify');
@@ -17,6 +18,13 @@ var src = [
 client.sass = function() {
   return gulp.src('./sass/styles.scss')
     .pipe(sass())
+    .pipe(gulp.dest('./static/css'));
+};
+
+client.minifyCss = function() {
+  return gulp.src('./static/css/styles.css')
+    .pipe(minifyCss())
+    .pipe(rename('styles.min.css'))
     .pipe(gulp.dest('./static/css'));
 };
 
@@ -41,13 +49,14 @@ client.uglify = function() {
 
 gulp.task('client-lint', client.lint);
 gulp.task('client-sass', client.sass);
+gulp.task('client-minify-css', ['client-sass'], client.minifyCss);
 gulp.task('client-concat', client.concat);
 gulp.task('client-uglify', ['client-concat'], client.uglify);
-gulp.task('client', ['client-lint', 'client-uglify', 'client-sass']);
+gulp.task('client', ['client-lint', 'client-uglify', 'client-minify-css']);
 
 gulp.task('client-watch', ['client'], function() {
   gulp.watch(src, ['client-lint', 'client-uglify']);
-  gulp.watch('./sass/styles.scss', ['client-sass']);
+  gulp.watch('./sass/*.scss', ['client-minify-css']);
 });
 
 

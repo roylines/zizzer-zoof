@@ -22,6 +22,7 @@
     "gulp-concat": "*",
     "gulp-exec": "*",
     "gulp-jshint": "*",
+    "gulp-minify-css": "*",
     "gulp-mocha": "*",
     "gulp-plumber": "*",
     "gulp-rename": "*",

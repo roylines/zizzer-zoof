@@ -1,6 +1,7 @@
 var thirdparty = {},
   gulp = require('gulp'),
   concat = require('gulp-concat'),
+  minifyCss = require('gulp-minify-css'),
   rename = require('gulp-rename'),
   uglify = require('gulp-uglify');
 
@@ -22,6 +23,13 @@ thirdparty.css = function() {
   
   return gulp.src(src)
     .pipe(concat('thirdparties.css'))
+    .pipe(gulp.dest('./static/css'));
+};
+
+thirdparty.minifyCss = function() {
+  return gulp.src('./static/css/thirdparties.css')
+    .pipe(minifyCss())
+    .pipe(rename('thirdparties.min.css'))
     .pipe(gulp.dest('./static/css'));
 };
 
@@ -49,7 +57,8 @@ thirdparty.uglify = function() {
 gulp.task('thirdparty-concat', thirdparty.concat);
 gulp.task('thirdparty-uglify', ['thirdparty-concat'], thirdparty.uglify);
 gulp.task('thirdparty-css', thirdparty.css);
+gulp.task('thirdparty-minify-css', ['thirdparty-css'], thirdparty.minifyCss);
 gulp.task('thirdparty-fonts', thirdparty.fonts);
-gulp.task('thirdparty', ['thirdparty-uglify', 'thirdparty-css', 'thirdparty-fonts']);
+gulp.task('thirdparty', ['thirdparty-uglify', 'thirdparty-minify-css', 'thirdparty-fonts']);
 
 module.exports = thirdparty;

@@ -105,6 +105,16 @@ app.directive('fileInput', ['$parse',
   }
 ]);
 
+app.directive('mainFooter', [
+  function() {
+    return {
+      restrict: 'E',
+      templateUrl: "/partial/footer",
+      replace: true
+    };
+  }
+]);
+
 app.directive('map', [
   function() {
     return {

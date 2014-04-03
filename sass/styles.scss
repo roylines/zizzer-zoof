@@ -1,36 +1,16 @@
-$masthead-background: blue; 
-$masthead-color: white; 
+@import 'palette';
 
 body {
   margin: 0;
   padding: 0;
-  padding-top: 38px;
 }
-
-.main.menu {
-  top: 0px;
-}
-
-.masthead {
-  h1 {
-    font-size: 4em;
-  },
-  h2 {
-    font-size: 3em;
+/*
+#main-nav {
+  background-color: $dark20;
+  a {
+    color: $light20;
+    font-weight: bold;
+    font-size: 5em;
   }
 }
-
-/*
-.masthead {
-position: relative;
-overflow: hidden;
-background-color: $masthead-background;
-text-align: center;
-margin: 38px 0px 10px 0px;
-padding: 10px;
-color: $masthead-color;
-h1 {
-font-size: 6em;
-}
-}
- */
+*/
