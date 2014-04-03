@@ -1,25 +1,15 @@
-$base: #4D7BA6;
+@import 'bourbon/bourbon';
 
-$dark10: darken($base, 10%);
-$dark15: darken($base, 15%);
-$dark20: darken($base, 20%);
-$dark30: darken($base, 30%);
-$dark60: darken($base, 60%);
-$light10: lighten($base, 10%);
-$light15: lighten($base, 15%);
-$light20: lighten($base, 20%);
-$light30: lighten($base, 30%);
-$light60: lighten($base, 60%);
+$brand-color: $brand-base;
+$brand-tint-1: tint($brand-color, 10%);
+$brand-tint-2: tint($brand-color, 25%);
+$brand-tint-3: tint($brand-color, 50%);
+$brand-tint-4: tint($brand-color, 75%);
+$brand-tint-5: tint($brand-color, 100%);
 
-.dark0 { background-color: $base; }
-.dark10 { background-color: $dark10; }
-.dark15 { background-color: $dark15; }
-.dark20 { background-color: $dark20; }
-.dark30 { background-color: $dark30; }
-.dark60 { background-color: $dark60; }
-.light0 { background-color: $base; }
-.light10 { background-color: $light10; }
-.light15 { background-color: $light15; }
-.light20 { background-color: $light20; }
-.light30 { background-color: $light30; }
-.light60 { background-color: $light60; }
+$brand-shade-1: shade($brand-color, 10%);
+$brand-shade-2: shade($brand-color, 25%);
+$brand-shade-3: shade($brand-color, 50%);
+$brand-shade-4: shade($brand-color, 75%);
+$brand-shade-5: shade($brand-color, 100%);
+

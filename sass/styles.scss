@@ -1,16 +1,28 @@
+$brand-base: rgb(52, 73, 94);
 @import 'palette';
 
 body {
   margin: 0;
   padding: 0;
+  color: $brand-shade-3;
 }
-/*
-#main-nav {
-  background-color: $dark20;
-  a {
-    color: $light20;
-    font-weight: bold;
+
+.masthead {
+  h1 {
     font-size: 5em;
   }
+  margin-bottom: 100px;
 }
-*/
+
+.inverted {
+  background-color: $brand-color;
+  color: $brand-tint-5;
+}
+
+#main-nav {
+  background-color: $brand-shade-3;
+  a {
+    color: $brand-tint-3;
+    font-weight: bold;
+  }
+}

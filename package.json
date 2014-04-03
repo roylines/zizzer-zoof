@@ -13,8 +13,8 @@
     "express": "*",
     "formidable": "*",
     "gm": "*",
-    "mongoose": "*",
     "lodash": "*",
+    "mongoose": "*",
     "winston": "*"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "gulp-mocha": "*",
     "gulp-plumber": "*",
     "gulp-rename": "*",
+    "gulp-ruby-sass": "*",
     "gulp-sass": "*",
     "gulp-uglify": "*",
     "gulp-watch": "*",

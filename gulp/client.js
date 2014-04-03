@@ -3,6 +3,7 @@ var client = {},
   gulp = require('gulp'),
   jshint = require('gulp-jshint'),
   minifyCss = require('gulp-minify-css'),
+  plumber = require('gulp-plumber'),
   rename = require('gulp-rename'),
   sass = require('gulp-sass'),
   uglify = require('gulp-uglify');
@@ -17,12 +18,14 @@ var src = [
 
 client.sass = function() {
   return gulp.src('./sass/styles.scss')
+    .pipe(plumber())
     .pipe(sass())
     .pipe(gulp.dest('./static/css'));
 };
 
 client.minifyCss = function() {
   return gulp.src('./static/css/styles.css')
+    .pipe(plumber())
     .pipe(minifyCss())
     .pipe(rename('styles.min.css'))
     .pipe(gulp.dest('./static/css'));
@@ -30,18 +33,21 @@ client.minifyCss = function() {
 
 client.lint = function() {
   return gulp.src(src)
+    .pipe(plumber())
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 };
 
 client.concat = function() {
   return gulp.src(src)
+    .pipe(plumber())
     .pipe(concat('zz.js'))
     .pipe(gulp.dest('./static/js'));
 };
 
 client.uglify = function() {
   return gulp.src('./static/js/zz.js')
+    .pipe(plumber())
     .pipe(uglify())
     .pipe(rename('zz.min.js'))
     .pipe(gulp.dest('./static/js'));
