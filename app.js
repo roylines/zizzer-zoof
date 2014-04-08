@@ -10,5 +10,4 @@ routes.listen(app, port, 'zz', function(e) {
     logger.error(e);
     process.exit(1);
   }
-
 });
