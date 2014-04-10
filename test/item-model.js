@@ -5,7 +5,8 @@ var assert = require('assert'),
   User = require('../models/user.js');
 
 describe('item (model)', function() {
-  var userId;
+  var user;
+
   before(function(done) {
     this.timeout(5000);
     return async.waterfall([
@@ -13,15 +14,15 @@ describe('item (model)', function() {
         return utils.db.connect(cb);
       },
       function(cb) {
-        var user = new User({
+        user = new User({
+          profileId: 'google:1',
           email: 'mocha@mocha.com',
-          password: 'PASSWORD',
-          geo: [1, 2]
+          name: 'user1'
         });
         return user.save(cb);
       },
       function(u, i, cb) {
-        userId = u._id;
+        user = u;
         return cb();
       }
     ], done);
@@ -33,7 +34,7 @@ describe('item (model)', function() {
     var item = new Item({
       desc: 'item1',
       imageId: 'image1',
-      owner: userId,
+      owner: user._id,
       price: 10,
       created: new Date(),
       geo: [1, 2]
@@ -50,7 +51,9 @@ describe('item (model)', function() {
   });
 
   it('can find items for owner', function(done) {
-    Item.find({ owner : userId }, function(e, items) {
+    Item.find({
+      owner: user._id
+    }, function(e, items) {
       assert.equal(items.length, 1);
       assert.equal(items[0].desc, 'item1');
       return done(e);

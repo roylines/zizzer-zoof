@@ -7,7 +7,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true);
 
-    var routes = ['login', 'selling', 'signup'];
+    var routes = ['selling'];
     for (var i = 0; i < routes.length; ++i) {
       var template = {
         title: 'Zizzer-Zoof: ' + routes[i],
@@ -163,30 +163,6 @@ app.controller('landing', ['$scope',
   }
 ]);
 
-app.controller('login', ['$scope', '$location', 'Login',
-  function($scope, $location, Login) {
-    $scope.busy = false;
-
-    var ok = function() {
-      $location.path('/selling');
-    };
-
-    var fail = function(res) {
-      $scope.error = res.data;
-      $scope.busy = false;
-    };
-
-    $scope.login = function(email, password) {
-      $scope.busy = true;
-      var details = {
-        email: email,
-        password: password
-      };
-      Login.save({}, details, ok, fail);
-    };
-  }
-]);
-
 app.controller('selling', ['$scope', 'Items',
   function($scope, Items) {
     $scope.state = 'idle';
@@ -207,60 +183,6 @@ app.controller('selling', ['$scope', 'Items',
     };
 
     $scope.forSale = Items.query({ status: 'selling' });
-  }
-]);
-
-app.controller('signup', ['$scope', '$location', 'Users',
-  function($scope, $location, Users) {
-    var ok = function() {
-      $location.path('/selling');
-    };
-
-    var fail = function(res) {
-      $scope.error = res.data;
-      $scope.formatted_address = null;
-      $scope.busy = false;
-    };
-
-    var searchResults = function(results, status) {
-      $scope.$apply(function() {
-        $scope.busy = false;
-        if (status == google.maps.GeocoderStatus.OK) {
-          if(results.length !== 1) {
-            $scope.error = 'too many locations, please be more specific';
-            return;
-          }
-          console.log(results);
-          $scope.center = {
-            lat: results[0].geometry.location.lat(),
-            lng: results[0].geometry.location.lng()
-          };
-          $scope.formatted_address = results[0].formatted_address;
-        } else {
-          $scope.error = status;
-        }
-      });
-    };
-
-    $scope.search = function(search) {
-      $scope.busy = true;
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({
-        'address': search
-      }, searchResults);
-    };
-
-    $scope.signup = function() {
-      $scope.busy = true;
-
-      var details = {
-        email: $scope.email,
-        password: $scope.password,
-        geo: [$scope.center.lng, $scope.center.lat] 
-      };
-
-      Users.save({}, details, ok, fail);
-    };
   }
 ]);
 

@@ -2,7 +2,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true);
 
-    var routes = ['login', 'selling', 'signup'];
+    var routes = ['selling'];
     for (var i = 0; i < routes.length; ++i) {
       var template = {
         title: 'Zizzer-Zoof: ' + routes[i],

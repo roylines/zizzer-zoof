@@ -3,25 +3,33 @@ var async = require('async'),
   pw = require('credential');
 
 var schema = new mongoose.Schema({
+  profileId: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true
+  },
   email: {
     type: String,
     lowercase: true,
-    required: true,
-    unique: true,
+    required: true
   },
-  password: {
+  name: {
     type: String,
     required: true
   },
   geo: {
     type: [Number], // longitude, latitude
-    required: true,
+    required: false,
     index: "2dsphere"
   }
 }, {
   safe: true
 });
 
+var model = mongoose.model('User', schema);
+
+/*
 schema.pre('save', function(done) {
   var user = this;
 
@@ -38,7 +46,6 @@ schema.pre('save', function(done) {
   ], done);
 });
 
-var model = mongoose.model('User', schema);
 
 model.findByEmailAndPassword = function(email, password, done) {
   var id = null;
@@ -63,5 +70,6 @@ model.findByEmailAndPassword = function(email, password, done) {
     }
   ], done);
 };
+*/
 
 module.exports = model;

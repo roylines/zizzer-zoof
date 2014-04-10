@@ -33,10 +33,15 @@ describe('routes', function() {
     return db.close(done);
   });
 
-  it('calling / should return 200', assertStatusCode('/'));
-  it('calling /x should return 200', assertStatusCode('/x'));
-  it('calling /partial/unknown should return 404', assertStatusCode('/partial/unknown', 404));
-  it('calling /partial/selling should return 200', assertStatusCode('/partial/selling'));
-  it('calling /logout should return 200', assertStatusCode('/logout'));
- 
+  describe('unauthenticated', function() {
+    it('calling / should return 200', assertStatusCode('/'));
+    it('calling /partial/nav should return 200', assertStatusCode('/partial/nav', 200));
+    it('calling /partial/landing should return 200', assertStatusCode('/partial/landing', 200));
+    it('calling /partial/footer should return 200', assertStatusCode('/partial/footer', 200));
+    it('calling /logout should return 200', assertStatusCode('/logout'));
+
+    it('calling /partial/unknown should return 401', assertStatusCode('/partial/unknown', 401));
+    it('calling /partial/selling unauthenticated should return 401', assertStatusCode('/partial/selling', 401));
+  });
+
 });
