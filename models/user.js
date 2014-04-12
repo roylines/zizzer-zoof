@@ -14,9 +14,20 @@ var schema = new mongoose.Schema({
     lowercase: true,
     required: true
   },
-  name: {
+  givenName: {
     type: String,
     required: true
+  },
+  familyName: {
+    type: String,
+    required: true
+  },
+  created: {
+    type: Number,
+    default: new Date().getTime()
+  },
+  updated: {
+    type: Number
   },
   geo: {
     type: [Number], // longitude, latitude
@@ -29,47 +40,13 @@ var schema = new mongoose.Schema({
 
 var model = mongoose.model('User', schema);
 
-/*
 schema.pre('save', function(done) {
-  var user = this;
-
-  if (!user.isModified('password')) return done();
-
-  return async.waterfall([
-    function(cb) {
-      return pw.hash(user.password, cb);
-    },
-    function(hash, cb) {
-      user.password = hash;
-      return cb();
-    }
-  ], done);
+  if (!this.updated) {
+    this.updated = this.created;
+  } else {
+    this.updated = new Date().getTime();
+  }
+  return done();
 });
-
-
-model.findByEmailAndPassword = function(email, password, done) {
-  var id = null;
-  async.waterfall([
-    function(cb) {
-      return model.findOne({
-        email: email
-      }, '_id, password', cb);
-    },
-    function(u, cb) {
-      if (u === null) {
-        return cb('wrong user');
-      }
-      id = u._id;
-      return pw.verify(u.password, password, cb);
-    },
-    function(valid, cb) {
-      if (!valid) {
-        return cb('wrong password');
-      }
-      return cb(null, id);
-    }
-  ], done);
-};
-*/
 
 module.exports = model;

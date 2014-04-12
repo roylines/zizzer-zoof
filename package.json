@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "async": "*",
+    "connect-mongo": "*",
     "credential": "*",
     "ejs": "*",
     "express": "*",
@@ -22,6 +23,7 @@
     "winston": "*"
   },
   "devDependencies": {
+    "chai": "*",
     "gulp": "*",
     "gulp-concat": "*",
     "gulp-exec": "*",

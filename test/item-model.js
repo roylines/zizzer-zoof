@@ -15,9 +15,10 @@ describe('item (model)', function() {
       },
       function(cb) {
         user = new User({
-          profileId: 'google:1',
-          email: 'mocha@mocha.com',
-          name: 'user1'
+          profileId: 'zombie:1',
+          email: 'rick@woodbury.com',
+          givenName: 'rick',
+          familyName: 'grimes'
         });
         return user.save(cb);
       },

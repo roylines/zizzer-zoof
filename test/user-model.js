@@ -1,31 +1,44 @@
-var assert = require('assert'),
+var User = require('../models/user.js'),
   async = require('async'),
-  utils = require('./utils'),
-  User = require('../models/user.js');
+  expect = require('chai').expect,
+  sinon = require('sinon'),
+  utils = require('./utils');
 
 describe('user (model)', function() {
 
   before(utils.db.connect);
-
+  
   after(utils.db.clear);
 
   it('can add a user', function(done) {
     var user = new User({
-      profileId: 'google:1',
-      email: 'mocha@mocha.com',
-      name: 'user1'
+      profileId: 'zombie:1',
+      email: 'rick@woodbury.com',
+      givenName: 'rick',
+      familyName: 'grimes'
     });
     return user.save(done);
   });
 
+  it('has set created and updated automagically', function(done) {
+    return User.findOne({
+      profileId: 'zombie:1'
+    }, function(e, u) {
+      expect(u.created).to.be.above(42);
+      expect(u.updated).to.equal(u.created);
+      return done(e);
+    });
+  });
+
   it('cannot add the same user twice', function(done) {
     var user = new User({
-      profileId: 'google:1',
-      email: 'mocha2@mocha.com',
-      name: 'user2'
+      profileId: 'zombie:1',
+      email: 'rick@woodbury.com',
+      givenName: 'rick',
+      familyName: 'grimes'
     });
     return user.save(function(e) {
-      assert.equal(e.code, 11000);
+      expect(e.code).to.equal(11000);
       return done();
     });
   });
@@ -34,7 +47,7 @@ describe('user (model)', function() {
     async.waterfall([
       function(cb) {
         return User.findOne({
-          profileId: 'google:1'
+          profileId: 'zombie:1'
         }, cb);
       },
       function(u, cb) {
@@ -43,39 +56,19 @@ describe('user (model)', function() {
       }
     ], done);
   });
-
-  it.skip('findByEmailAndPassword for valid users should return id', function(done) {
-    User.findByEmailAndPassword('mocha@mocha.com', 'PASSWORD', function(e, id) {
-      assert.equal(e, null);
-      assert(id);
-      return done();
-    });
-  });
-
-  it.skip('findByEmailAndPassword for missing email should return error', function(done) {
-    User.findByEmailAndPassword(null, 'PASSWORD', function(e, id) {
-      assert.equal(e, 'wrong user');
-      return done();
-    });
-  });
-
-  it.skip('findByEmailAndPassword for invalid email should return error', function(done) {
-    User.findByEmailAndPassword('missing@missing.com', 'PASSWORD', function(e, id) {
-      assert.equal(e, 'wrong user');
-      return done();
-    });
-  });
-
-  it.skip('findByEmailAndPassword for invalid password should return error', function(done) {
-    User.findByEmailAndPassword('mocha@mocha.com', 'WRONGPASSWORD', function(e, id) {
-      assert.equal(e, 'wrong password');
-      return done();
+  
+  it('has set updated automagically', function(done) {
+    return User.findOne({
+      profileId: 'zombie:1'
+    }, function(e, u) {
+      expect(u.updated).to.not.equal(u.created);
+      return done(e);
     });
   });
 
   it('can remove a user', function(done) {
     return User.remove({
-      profileId: 'google:1'
+      profileId: 'zombie:1'
     }, done);
   });
 });

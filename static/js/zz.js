@@ -58,18 +58,6 @@ app.run(['$location', '$rootScope',
   }
 ]);
 
-services.factory('Login', ['$resource',
-  function($resource) {
-    return $resource('/api/1/login');
-  }
-]);
-
-services.factory('Logout', ['$resource',
-  function($resource) {
-    return $resource('/api/1/logout');
-  }
-]);
-
 services.factory('Items', ['$resource',
   function($resource) {
     return $resource('/api/1/items/:id');
@@ -78,7 +66,7 @@ services.factory('Items', ['$resource',
 
 services.factory('Users', ['$resource',
   function($resource) {
-    return $resource('/api/1/users');
+    return $resource('/api/1/users/:name');
   }
 ]);
 
@@ -163,6 +151,12 @@ app.controller('landing', ['$scope',
   }
 ]);
 
+app.controller('nav', ['$rootScope', '$scope', 'Users', 
+  function($rootScope, $scope, Users) {
+    $rootScope.me = Users.get({name : 'me'});
+  }
+]);
+
 app.controller('selling', ['$scope', 'Items',
   function($scope, Items) {
     $scope.state = 'idle';
@@ -183,14 +177,5 @@ app.controller('selling', ['$scope', 'Items',
     };
 
     $scope.forSale = Items.query({ status: 'selling' });
-  }
-]);
-
-app.controller('topbar', ['$scope', '$location', 'Logout',
-  function($scope, $location, Logout) {
-    $scope.logout = function() {
-      Logout.query();
-      $location.path('/login');
-    };  
   }
 ]);

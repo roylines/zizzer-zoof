@@ -1,8 +1,7 @@
-<nav id="main-nav" class="ui menu">
-  <a class="item">Zizzer-Zoof</a>
+<nav id="main-nav" class="ui menu" ng-controller="nav">
+  <a href="/" class="item">Zizzer-Zoof</a>
+  <a ng-show="me.givenName" href="/" class="item">Hi {{ me.givenName }}!</a>
   <div class="right menu">
-    <a class="item" href="#">A</a>
-    <a class="item" href="#">B</a>
-    <a class="item" href="#">C</a>
+    <a ng-show="me.givenName" class="item" href="/logout" target="_self">Logout</a>
   </div>
 </nav>
