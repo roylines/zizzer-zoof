@@ -50,7 +50,7 @@
     "url": "http://github.com/roylines/zizzer-zoof.git"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "./node_modules/.bin/gulp test"
+    "start": "naught start app.js",
+    "test": "gulp test"
   }
 }

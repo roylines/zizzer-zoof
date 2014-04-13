@@ -20,14 +20,12 @@ deploy.packageRoot = function() {
     .pipe(gulp.dest(packaged));
 };
 
-deploy.all = function() {};
-
 gulp.task('deploy-package-statics', deploy.package('static'));
 gulp.task('deploy-package-views', deploy.package('views'));
 gulp.task('deploy-package-models', deploy.package('models'));
 gulp.task('deploy-package-lib', deploy.package('lib'));
 gulp.task('deploy-package-root', deploy.packageRoot);
 gulp.task('deploy-package', ['deploy-package-root', 'deploy-package-statics', 'deploy-package-views', 'deploy-package-models', 'deploy-package-lib']);
-gulp.task('deploy-all', deploy.all);
+gulp.task('deploy-all', ['deploy-package']);
 
 module.exports = deploy;
