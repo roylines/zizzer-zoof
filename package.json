@@ -16,8 +16,8 @@
     "gm": "*",
     "lodash": "*",
     "mongoose": "*",
+    "naught": "*",
     "passport": "*",
-    "passport-facebook": "*",
     "passport-facebook": "*",
     "passport-google-oauth": "*",
     "winston": "*"
@@ -35,7 +35,6 @@
     "gulp-ruby-sass": "*",
     "gulp-sass": "*",
     "gulp-uglify": "*",
-    "gulp-watch": "*",
     "istanbul": "*",
     "mocha": "*",
     "request": "*",
@@ -52,6 +51,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "./node_modules/gulp/bin/gulp.js test"
+    "test": "./node_modules/.bin/gulp test"
   }
 }

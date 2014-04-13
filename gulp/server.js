@@ -1,6 +1,7 @@
 var server = {},
   gulp = require('gulp'),
   mocha = require('gulp-mocha'),
+  plumber = require('gulp-plumber'),
   jshint = require('gulp-jshint');
 
 var src = [
@@ -20,12 +21,13 @@ server.test = function() {
     reporter: 'spec'
   };
 
-  return gulp.src('test/*.js')
+  return gulp.src('test/*-test.js')
+    .pipe(plumber())
     .pipe(mocha(config));
 };
 
 gulp.task('server-lint', server.lint);
 gulp.task('server-test', server.test);
-gulp.task('server', ['server-lint']);//, 'server-test']);
+gulp.task('server', ['server-lint', 'server-test']);
 
 module.exports = server;
