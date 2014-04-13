@@ -3,11 +3,13 @@
 var app = angular.module('app', ['ngRoute', 'services']);
 var services = angular.module('services', ['ngResource']);
 
+$('.ui.dropdown').dropdown();
+
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true);
 
-    var routes = ['selling'];
+    var routes = ['settings'];
     for (var i = 0; i < routes.length; ++i) {
       var template = {
         title: 'Zizzer-Zoof: ' + routes[i],
@@ -146,14 +148,15 @@ app.directive('mainNavigation', [
   }
 ]);
 
-app.controller('landing', ['$scope',
-  function($scope) {
+app.controller('auth', ['$scope', 'Users', 
+  function($scope, Users) {
+    $scope.me = Users.get({name : 'me'});
   }
 ]);
 
-app.controller('nav', ['$rootScope', '$scope', 'Users', 
-  function($rootScope, $scope, Users) {
-    $rootScope.me = Users.get({name : 'me'});
+app.controller('landing', ['$scope',
+  function($scope) {
+    console.log($scope.me);
   }
 ]);
 
@@ -177,5 +180,10 @@ app.controller('selling', ['$scope', 'Items',
     };
 
     $scope.forSale = Items.query({ status: 'selling' });
+  }
+]);
+
+app.controller('settings', ['$scope', 
+  function($scope) {
   }
 ]);

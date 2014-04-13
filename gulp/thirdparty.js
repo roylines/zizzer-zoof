@@ -9,7 +9,7 @@ var path = '../../thirdparty';
 
 thirdparty.fonts = function() {
   var src = [
-    path + '/semantic-0.15.1/packaged/fonts/*',
+    path + '/semantic/build/packaged/fonts/*',
   ];
   
   return gulp.src(src)
@@ -18,7 +18,7 @@ thirdparty.fonts = function() {
 
 thirdparty.css = function() {
   var src = [
-    path + '/semantic-0.15.1/packaged/css/semantic.css',
+    path + '/semantic/build/packaged/css/semantic.css',
   ];
   
   return gulp.src(src)
@@ -36,7 +36,7 @@ thirdparty.minifyCss = function() {
 thirdparty.concat = function() {
   var src = [
     path + '/jquery/jquery-2.1.0.js',
-    path + '/semantic-0.15.1/packaged/javascript/semantic.js',
+    path + '/semantic/build/packaged/javascript/semantic.js',
     path + '/angular/angular-1.2.2/angular.js',
     path + '/angular/angular-1.2.2/angular-route.js',
     path + '/angular/angular-1.2.2/angular-resource.js'
