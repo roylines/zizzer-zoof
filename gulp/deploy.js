@@ -30,13 +30,13 @@ deploy.scp = function() {
     var cmd = 'ssh ' + user + '@' + ip + ' \'' + commands + '\'';
     console.log(cmd);
     return cmd;
-  }
+  };
 
   var scp = function(user, source, target, done) {
     var cmd = 'scp -Cr ' + source + ' ' + user + '@' + ip + ':' + target;
     console.log(cmd);
     return cmd;
-  }
+  };
 
   return gulp.src('')
     .pipe(exec(scp('nodeuser', packaged, remotePackaged)))
