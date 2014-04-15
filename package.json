@@ -9,12 +9,9 @@
   "dependencies": {
     "async": "*",
     "connect-mongo": "*",
-    "cookie-parser": "*",
-    "express-session": "*",
     "credential": "*",
     "ejs": "*",
-    "express": "*",
-    "express-session": "*",
+    "express": "3.*",
     "formidable": "*",
     "gm": "*",
     "lodash": "*",
@@ -23,7 +20,6 @@
     "passport": "*",
     "passport-facebook": "*",
     "passport-google-oauth": "*",
-    "serve-static": "*",
     "winston": "*"
   },
   "devDependencies": {

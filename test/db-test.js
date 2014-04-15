@@ -1,11 +1,15 @@
 var assert = require('assert'),
-  db = require('../models/db.js');
+  db = require('../models/db.js'),
+  utils = require('./utils');
 
-describe('db', function() {
+describe('db ->', function() {
+  before(utils.logger.stub);
   beforeEach(db.close);
-  afterEach(db.close);
 
-  describe('connect', function() {
+  afterEach(db.close);
+  after(utils.logger.restore);
+
+  describe('connect ->', function() {
     it('should connect to default database', function(done) {
       return db.connect('zz', function(e) {
         assert.equal(db.name(), 'zz');
@@ -20,7 +24,7 @@ describe('db', function() {
     });
   });
 
-  describe('close', function() {
+  describe('close ->', function() {
     it('should be ok when no connections open', function(done) {
       assert.equal(db.name(), null);
       return db.close(done);

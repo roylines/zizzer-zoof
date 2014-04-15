@@ -1,12 +1,14 @@
-var assert = require('assert'),
+var 
   async = require('async'),
+  expect = require('chai').expect,
   utils = require('./utils'),
   Item = require('../models/item.js'),
   User = require('../models/user.js');
 
-describe('item (model)', function() {
+describe('model -> item ->', function() {
   var user;
-
+  
+  before(utils.logger.stub);
   before(function(done) {
     this.timeout(5000);
     return async.waterfall([
@@ -30,6 +32,7 @@ describe('item (model)', function() {
   });
 
   after(utils.db.clear);
+  after(utils.logger.restore);
 
   it('can add an item', function(done) {
     var item = new Item({
@@ -45,8 +48,9 @@ describe('item (model)', function() {
 
   it('can find nearby items', function(done) {
     Item.findNearby([1, 2], 1, function(e, items) {
-      assert.equal(items.length, 1);
-      assert.equal(items[0].desc, 'item1');
+      expect(e).to.be.a('null');
+      expect(items).to.have.length(1);
+      expect(items[0].desc).to.equal('item1');
       return done(e);
     });
   });
@@ -55,8 +59,9 @@ describe('item (model)', function() {
     Item.find({
       owner: user._id
     }, function(e, items) {
-      assert.equal(items.length, 1);
-      assert.equal(items[0].desc, 'item1');
+      expect(e).to.be.a('null');
+      expect(items).to.have.length(1);
+      expect(items[0].desc).to.equal('item1');
       return done(e);
     });
   });

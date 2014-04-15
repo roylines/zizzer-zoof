@@ -1,10 +1,25 @@
 var async = require('async'),
   db = require('../models/db'),
-  Item = require('../models/item.js'),
-  User = require('../models/user.js');
+  logger = require('../lib/logger'),
+  sinon = require('sinon'),
+  Item = require('../models/item'),
+  User = require('../models/user');
 
 var utils = {
-  db: {}
+  db: {},
+  logger: {}
+};
+
+utils.logger.stub = function() {
+  sinon.stub(logger, 'info');
+  sinon.stub(logger, 'warn');
+  sinon.stub(logger, 'error');
+};
+
+utils.logger.restore = function() {
+  logger.info.restore();
+  logger.warn.restore();
+  logger.error.restore();
 };
 
 utils.db.connect = function(done) {

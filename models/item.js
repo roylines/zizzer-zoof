@@ -1,5 +1,5 @@
 var mongoose = require("mongoose"),
-    User = require('./user');
+  User = require('./user');
 
 // http://stackoverflow.com/questions/9230932/file-structure-of-mongoose-nodejs-project
 
@@ -41,10 +41,10 @@ schema.statics.findNearby = function(where, distance, done) {
       $near: {
         $geometry: {
           type: "Point",
-          coordinates: where
+          coordinates: where,
+          $maxDistance: distance
         }
       },
-      $maxDistance: distance
     }
   }, done);
 };

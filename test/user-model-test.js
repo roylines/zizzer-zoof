@@ -4,11 +4,12 @@ var User = require('../models/user.js'),
   sinon = require('sinon'),
   utils = require('./utils');
 
-describe('user (model)', function() {
-
+describe('model -> user ->', function() {
+  before(utils.logger.stub);
   before(utils.db.connect);
-  
+
   after(utils.db.clear);
+  after(utils.logger.restore);
 
   it('can add a user', function(done) {
     var user = new User({
