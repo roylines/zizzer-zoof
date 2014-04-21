@@ -9,11 +9,20 @@ var expect = require('chai').expect,
 describe('routes ->', function() {
   before(utils.logger.stub);
   before(function() {
-    sinon.stub(config, 'mongo').returns({
-      db: 'zztest'
+    sinon.stub(config, 'session').returns({
+      secret: 'shhh...'
     });
     sinon.stub(config, 'server').returns({
       port: 8888
+    });
+    sinon.stub(config, 'mongo').returns({
+      db: 'zztest'
+    });
+    sinon.stub(config, 'google').returns({
+      callbackURL: 'http://localhost',
+      apiKey: 'KEY',
+      clientID: 'CLIENTID',
+      clientSecret: 'SECRET'
     });
   });
 

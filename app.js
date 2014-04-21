@@ -2,11 +2,13 @@ var async = require('async'),
   config = require('./lib/config'),
   express = require('express'),
   logger = require('./lib/logger'),
-  minimist = require('minimist')
+  minimist = require('minimist'),
   routes = require('./lib/routes');
 
 var argv = require('minimist')(process.argv.slice(2));
 config.init(argv);
+
+logger.error('ZZZZ', argv);
 
 var app = express();
 routes.listen(app, function(e) {
