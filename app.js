@@ -8,8 +8,6 @@ var async = require('async'),
 var argv = require('minimist')(process.argv.slice(2));
 config.init(argv);
 
-logger.error('ZZZZ', argv);
-
 var app = express();
 routes.listen(app, function(e) {
   if (e) {
