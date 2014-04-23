@@ -10,11 +10,9 @@
     "async": "*",
     "body-parser": "*",
     "connect-mongo": "*",
-    "cookie-parser": "*",
     "credential": "*",
     "ejs": "*",
-    "express": "*",
-    "express-session": "*",
+    "express": "3.*.*",
     "formidable": "*",
     "gm": "*",
     "lodash": "*",
@@ -54,7 +52,7 @@
     "url": "http://github.com/roylines/zizzer-zoof.git"
   },
   "scripts": {
-    "start": "naught start app.js --domain=http://localhost --port=8000 --secret=itsasecrettellnoone --google-client=$ZZ_GOOGLE_CLIENT_ID --google-secret=$ZZ_GOOGLE_CLIENT_SECRET --google-api=$ZZ_GOOGLE_API_KEY",
+    "start": "naught start app.js --development=true --googleClientId=$ZZ_GOOGLE_CLIENT_ID --googleClientSecret=$ZZ_GOOGLE_CLIENT_SECRET --googleApiKey=$ZZ_GOOGLE_API_KEY",
     "test": "gulp test"
   }
 }

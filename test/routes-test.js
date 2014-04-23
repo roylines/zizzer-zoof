@@ -1,37 +1,26 @@
-var expect = require('chai').expect,
+var _ = require('lodash'),
   config = require('../lib/config'),
   db = require('../models/db'),
+  expect = require('chai').expect,
   express = require('express'),
   routes = require('../lib/routes'),
-  utils = require('./utils'),
-  sinon = require('sinon');
+  utils = require('./utils');
 
 describe('routes ->', function() {
   before(utils.logger.stub);
   before(function() {
-    sinon.stub(config, 'session').returns({
-      secret: 'shhh...'
-    });
-    sinon.stub(config, 'server').returns({
+    config.init({
+      mongoDbName: 'zztest',
       port: 8888
-    });
-    sinon.stub(config, 'mongo').returns({
-      db: 'zztest'
-    });
-    sinon.stub(config, 'google').returns({
-      callbackURL: 'http://localhost',
-      apiKey: 'KEY',
-      clientID: 'CLIENTID',
-      clientSecret: 'SECRET'
     });
   });
 
   after(function(done) {
-    config.mongo.restore();
-    config.server.restore();
+    config.init({});
     routes.close();
     return db.close(done);
   });
+
   after(utils.logger.restore);
 
   describe('listening ->', function() {

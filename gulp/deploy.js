@@ -38,12 +38,12 @@ deploy.scp = function() {
     return cmd;
   };
 
-  var naughtStart = ";authbind --deep naught start current/app.js --domain=http://" + process.env.ZZ_REMOTE + " --secret=" + process.env.ZZ_EXPRESS_SESSION_SECRET + " --google-client=" + process.env.ZZ_GOOGLE_CLIENT_ID + " --google-secret=" + process.env.ZZ_GOOGLE_CLIENT_SECRET + " --google-api=" + process.env.ZZ_GOOGLE_API_KEY;
+  var naughtStart = ";authbind --deep naught start current/app.js --port=80 --hostname=" + process.env.ZZ_REMOTE + " --sessionSecret=" + process.env.ZZ_EXPRESS_SESSION_SECRET + " --googleClientId=" + process.env.ZZ_GOOGLE_CLIENT_ID + " --googleClientSecret=" + process.env.ZZ_GOOGLE_CLIENT_SECRET + " --googleApiKey=" + process.env.ZZ_GOOGLE_API_KEY;
 
   return gulp.src('')
     .pipe(exec(scp('nodeuser', packaged, remotePackaged)))
     .pipe(exec(ssh('nodeuser', 'set -e; cd ' + remotePackaged + ';npm install --production')))
-    .pipe(exec(ssh('nodeuser', 'set -e; ln -s ' + remotePackaged + ' ' + remoteCurrent)))
+    .pipe(exec(ssh('nodeuser', 'set -e; rm ' + remoteCurrent + '; ln -s ' + remotePackaged + ' ' + remoteCurrent)))
     .pipe(exec(ssh('nodeuser', 'set -e; cd ' + remote + naughtStart + ';naught deploy')));
 };
 
