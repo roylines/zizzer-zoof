@@ -4,6 +4,10 @@ var mongoose = require("mongoose"),
 // http://stackoverflow.com/questions/9230932/file-structure-of-mongoose-nodejs-project
 
 var schema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
   desc: {
     type: String,
     required: true

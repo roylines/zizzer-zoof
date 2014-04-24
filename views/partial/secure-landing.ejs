@@ -1,5 +1,25 @@
-<div class="ui page grid one column center aligned">
+<div class="ui page grid one column">
   <section class="column">
-    <h1>Hi {{ me.givenName }}!</h1>
+    <h2>What's New</h2>
+    <table class="ui basic table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Cost</th>
+          <th>Status</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="item in nearby" >
+        <td><img class="rounded ui small image" ng-src="{{item.image}}"></img>
+          {{ item.title }}</td>
+        <td>{{ item.price | currency:"£" }}</td>
+        <td ng-show="item.status == 'available'"><i class="checkmark icon"></i>{{ item.status }}</td>
+        <td ng-show="item.status == 'offers'"><i class="warning icon"></i>{{ item.status }}</td>
+        <td>{{ item.location }} ({{ item.distance}})</td>
+      </tr>
+      </tbody>
+    </table>
   </section>
 </div>
