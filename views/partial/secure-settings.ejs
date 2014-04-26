@@ -12,12 +12,24 @@
       </div>
 
       <p>In order to allow you to find things near you, and sell things to people in your area, we need to know where you are. We promise not to use your details for other purposes, only to help you find great things.</p>
-      <div class="ui form">
+      
+      <div class="ui form" ng-hide="place" >
         <div class="field">
-          <label>Your location</label>
-          <input id="searchTextField" type="text" value="">
+          <input google-places-autocomplete place="place" type="text" title="Your Location" placeholder="Your location. You can use a place name or your postcode"/>
         </div>
-        <a class="ui green button" ng-enabled="place" ng-click="setLocation(place)">Set as my location</a>
+      </div>
+      
+      <div ng-show="place">
+        <div class="header">
+          Set {{ place.formatted_address }} as your location?
+        </div>
+        <p>
+        <div class="ui buttons">
+          <div class="ui negative button" ng-click="place = null" >No</div>
+          <div class="or"></div>
+          <div class="ui positive button">Yes</div>
+        </div>
+        </p>
       </div>
     </div>
   </section>
