@@ -16,6 +16,15 @@ thirdparty.fonts = function() {
     .pipe(gulp.dest('./static/fonts'));
 };
 
+thirdparty.images = function() {
+  var src = [
+    path + '/semantic/build/packaged/images/*',
+  ];
+  
+  return gulp.src(src)
+    .pipe(gulp.dest('./static/images'));
+};
+
 thirdparty.css = function() {
   var src = [
     path + '/semantic/build/packaged/css/semantic.css',
@@ -59,6 +68,7 @@ gulp.task('thirdparty-uglify', ['thirdparty-concat'], thirdparty.uglify);
 gulp.task('thirdparty-css', thirdparty.css);
 gulp.task('thirdparty-minify-css', ['thirdparty-css'], thirdparty.minifyCss);
 gulp.task('thirdparty-fonts', thirdparty.fonts);
-gulp.task('thirdparty', ['thirdparty-uglify', 'thirdparty-minify-css', 'thirdparty-fonts']);
+gulp.task('thirdparty-images', thirdparty.images);
+gulp.task('thirdparty', ['thirdparty-uglify', 'thirdparty-minify-css', 'thirdparty-fonts', 'thirdparty-images']);
 
 module.exports = thirdparty;

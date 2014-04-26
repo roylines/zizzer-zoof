@@ -1,8 +1,24 @@
-<div class="ui page grid one column center aligned">
+<div class="ui page grid one column">
   <section class="column">
+
     <h2 class="ui header">
-      <i class="map marker icon"></i>
+      <i class="settings icon"></i>
       Account Settings For {{ me.givenName }}
     </h2>
+    <div ng-hide="me.geo" class="ui message">
+      <div class="header">
+        <i class="map marker icon"></i>
+        Where are you?
+      </div>
+
+      <p>In order to allow you to find things near you, and sell things to people in your area, we need to know where you are. We promise not to use your details for other purposes, only to help you find great things.</p>
+      <div class="ui form">
+        <div class="field">
+          <label>Your location</label>
+          <input id="searchTextField" type="text" value="">
+        </div>
+        <a class="ui green button" ng-enabled="place" ng-click="setLocation(place)">Set as my location</a>
+      </div>
+    </div>
   </section>
 </div>
